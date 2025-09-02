@@ -104,9 +104,13 @@ if errorlevel 1 (
 )
 echo %GREEN%✓ Initial commit created successfully%RESET%
 
+:: Get current branch name
+for /f "tokens=*" %%i in ('git branch --show-current') do set current_branch=%%i
+if "!current_branch!"=="" set current_branch=master
+
 :: Push to GitHub
 echo %BLUE%Pushing to GitHub...%RESET%
-git push -u origin main
+git push -u origin !current_branch!
 if errorlevel 1 (
     echo %RED%Error: Failed to push to GitHub%RESET%
     echo.
@@ -114,7 +118,7 @@ if errorlevel 1 (
     echo 1. Make sure you're authenticated with GitHub
     echo 2. Check your internet connection
     echo 3. Verify the repository exists on GitHub
-    echo 4. Try running: git push -u origin main
+    echo 4. Try running: git push -u origin !current_branch!
     pause
     exit /b 1
 )
@@ -127,7 +131,7 @@ echo %BLUE%========================================%RESET%
 echo.
 echo %BLUE%Repository: %RESET%https://github.com/mark-25-git/teevent.my
 echo %BLUE%Commit: %RESET%!commit_message!
-echo %BLUE%Branch: %RESET%main (set as upstream)
+echo %BLUE%Branch: %RESET%!current_branch! (set as upstream)
 echo.
 
 pause
