@@ -10,25 +10,42 @@ Currently, our main target customers are university events, particularly student
 
 ### ✅ Completed Features
 - **Mixed Theme Design**: Dark hero section with bright content sections
-- **Pain Points Section**: Interactive chat animations demonstrating real pain points with uniform card heights
-- **Solutions Section**: Modal-based solution cards with background images and CTA button
-- **Custom Logo**: SVG logo integration in header
+- **Hero Background Image**: Full-screen background with black overlay and mobile optimization
+- **Event Logos Section**: Client showcase with grayscale-to-color hover effects
+- **Pain Points Section**: 4 interactive chat animations demonstrating real pain points with 2-column desktop layout
+- **Solutions Section**: 4 modal-based solution cards with background images and 2-column desktop layout
+- **Testimonials Section**: Customer feedback cards with 5-star ratings and university affiliations
+- **Advanced SEO Optimization**: Comprehensive meta tags, Open Graph, Twitter Cards, structured data, and keyword-optimized content
+- **Custom Logo**: SVG logo integration in header with clean file naming (teevent.svg)
 - **Responsive Design**: Mobile-first approach with consistent breakpoints
 - **Chat Animations**: WhatsApp-style chat bubbles with custom emoji reactions
 - **Modal System**: Interactive solution modals with detailed content
 - **Optimized Interactions**: Refined hover effects and button behaviors
 - **Plus Button Indicators**: Round plus buttons on solution cards for clickability
-- **Simplified Product Cards**: Background image approach with natural text positioning
-- **Updated Product Copywriting**: Concise, impactful product descriptions
+- **Featured Product Cards**: Full-width responsive cards with desktop/mobile background images
+- **Unified Product Card Styling**: Consistent typography and positioning across all product cards
+- **Responsive Background Images**: Desktop and mobile versions for featured cards
+- **Optimized Text Positioning**: 35% from top for lanyard card, centered for others
+- **Enhanced Typography**: Black text with light weight subtitles for better contrast
+- **Streamlined Product Selection**: Focused on core products with responsive background images
+- **Email Copy Functionality**: Interactive email copying with notification system
+- **Enhanced Footer**: Social media links, contact information, and logo integration with improved UX
+- **Professional Favicon Set**: Complete favicon and app icon implementation for all devices
+- **Web App Manifest**: PWA-ready with app shortcuts and proper branding
+- **Technical SEO Files**: Sitemap.xml, robots.txt, and browser configuration files
+- **Structured Data (JSON-LD)**: Complete business, product, and review schemas for search engines
+- **Social Media Optimization**: Open Graph and Twitter Cards for enhanced sharing
+- **Performance Optimization**: Resource preloading, DNS prefetch, and font optimization
 
 ### 🎯 Key Sections Implemented
-1. **Hero Section**: Dark theme with gradient text and primary CTA
-2. **Pain Points Section**: 3 interactive chat demonstrations with custom emoji reactions
-3. **Solutions Section**: 3 solution cards with modal-based detailed content
-4. **Products Section**: Bright theme with product cards
-5. **Features Section**: Service benefits with clean presentation
-6. **Vision Section**: Future platform vision with bright gradient text
-7. **Contact Section**: Call-to-action with email integration
+1. **Hero Section**: Dark theme with background image, black overlay, and primary CTA ("Start Your Order")
+2. **Event Logos Section**: Client showcase with 12 partner logos and grayscale-to-color hover effects
+3. **Pain Points Section**: 4 interactive chat demonstrations with custom emoji reactions in 2-column desktop layout
+4. **Solutions Section**: 4 solution cards with modal-based detailed content in 2-column desktop layout
+5. **Products Section**: Bright theme with 2 featured cards (full-width) + 2 regular product cards (2-column grid) featuring responsive background images
+6. **Testimonials Section**: 4 customer testimonials with 5-star ratings from Malaysian universities
+7. **Contact Section**: Call-to-action with service-focused messaging and "Choose Better" CTA
+8. **Footer Section**: Social media links, contact information, logo integration, and email copy functionality
 
 ### 🎨 Design System Updates
 - **Bright Theme Colors**: Added comprehensive bright theme palette
@@ -37,6 +54,16 @@ Currently, our main target customers are university events, particularly student
 - **Enhanced Typography**: Responsive text scaling with proper hierarchy
 - **Modal System**: Interactive modal design with backdrop blur and smooth animations
 - **Solution Cards**: Background image integration with left-aligned text and enhanced typography
+- **Event Logos Grid**: 4-column desktop, 2-column mobile layout with grayscale-to-color hover effects
+- **Testimonials Cards**: 2-column desktop, single-column mobile layout with 5-star ratings and clean typography
+- **SEO Integration**: Proper heading hierarchy (H1 for hero, H2 for sections, H3 for subsections)
+- **Image Optimization**: Descriptive alt tags and title attributes for better accessibility and SEO
+- **Advanced Meta Tags**: Open Graph, Twitter Cards, canonical URLs, and geographic targeting
+- **Structured Data**: JSON-LD schemas for business, products, reviews, and contact information
+- **Technical SEO**: Sitemap.xml, robots.txt, web app manifest, and browser configuration
+- **Performance SEO**: Resource preloading, DNS prefetch, and optimized font loading
+- **Footer Logo Integration**: Professional logo display with responsive styling
+- **Enhanced CTA Messaging**: Service-focused contact section with "Choose Better" call-to-action
 
 ## Business Model
 
@@ -69,14 +96,14 @@ This outsourcing arrangement allows us to keep costs low, but it is not somethin
 
 ## Current Focus
 
-For now, our focus remains on customized merchandise, particularly:
+For now, our focus remains on custom merchandise, particularly:
 
-- **Customized t-shirts**
-- **Customized lanyards**
-- **Canvas bags**
-- **Tote bags**
-- **Acrylic keychains**
-- **Badge pins**
+- **Custom t-shirts**
+- **Custom lanyards**
+- **Custom canvas bags**
+- **Custom tote bags**
+- **Custom acrylic keychains**
+- **Custom pin & button badges**
 
 These are our strongest products because:
 - We have reliable suppliers.
@@ -176,6 +203,8 @@ The Teevent design system is built around Apple.com-inspired aesthetics that ref
 - **Gutters**: `32px` on desktop, `24px` on mobile
 - **Section Padding**: `128px` vertical, `64px` horizontal on desktop
 - **Mobile Section Padding**: `64px` vertical, `24px` horizontal
+- **Desktop Grid Layout**: 2-column layout for pain points and solutions sections
+- **Mobile Grid Layout**: Single column for all sections
 
 #### Breakpoints
 - **Mobile**: `< 768px`
@@ -187,6 +216,7 @@ The Teevent design system is built around Apple.com-inspired aesthetics that ref
 - Maintain consistent spacing using the 8px grid system
 - Ensure responsive behavior across all breakpoints
 - Use max-width containers for optimal reading experience
+- 2-column desktop layout for 4-card sections (pain points, solutions)
 
 ### Component Library
 
@@ -240,56 +270,113 @@ The Teevent design system is built around Apple.com-inspired aesthetics that ref
     overflow: hidden;
     transition: all var(--transition-base);
     box-shadow: var(--shadow-bright-md);
-    height: 636px;
+    height: 532px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: var(--space-6) var(--space-4);
+    padding: var(--space-16) var(--space-6);
 }
 
 .product-card:hover {
     box-shadow: var(--shadow-bright-2xl);
+}
+
+/* Featured Product Card - Full Width */
+.product-card-featured {
+    grid-column: 1 / -1;
+    height: 532px;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Featured Card 1 (Lanyards) - Position at 35% from top (Desktop only) */
+.product-card-lanyard {
+    justify-content: flex-start;
+    padding-top: 186px;
+    padding-bottom: var(--space-6);
+}
+
+/* Product Card Typography */
+.product-title {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-black);
+    margin: 0 0 var(--space-2) 0;
+    text-align: center;
+}
+
+.product-subtitle {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-light);
+    color: var(--color-black);
+    margin: 0;
+    line-height: 1.4;
+    text-align: center;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .product-card {
+        height: 636px;
+    }
+    
+    .product-card-featured {
+        height: 636px;
+    }
+    
+    .product-title {
+        font-size: var(--text-xl);
+    }
+    
+    .product-subtitle {
+        font-size: var(--text-sm);
+    }
+    
+    .product-card-lanyard {
+        justify-content: flex-start;
+        padding-top: var(--space-16);
+        padding-bottom: var(--space-6);
+    }
 }
 ```
 
 **Usage**: Product displays, feature highlights
 **States**: Default, hover (enhanced shadow effect)
 **Elements**: Background image, title, description
-**Products**: Custom T-Shirts, Custom Lanyards, Canvas Bags, Tote Bags, Acrylic Keychains, Badge Pins
-**Current Product Count**: 6 product cards with background image approach
+**Products**: Featured Lanyards, Featured T-Shirts, Canvas Bags, Acrylic Keychains
+**Current Product Count**: 2 featured cards + 2 regular product cards
 **Theme**: Bright theme with background images and natural text positioning
+**Layout**: Featured cards span full width, regular cards in 2-column grid
 
 #### Product Cards (Current Implementation)
-**Custom T-Shirts**:
-- **Background Image**: `images/products/cotton-tshirt-1.webp`
-- **Copy**: "A canvas for your design."
-- **Features**: Background image approach with natural text positioning
 
-**Custom Lanyards**:
-- **Background Image**: `images/products/lanyard-1-1.webp`
+##### Featured Product Cards (Full Width)
+**Custom Lanyards (Featured)**:
+- **Desktop Background**: `images/products/lanyard-desktop.webp`
+- **Mobile Background**: `images/products/lanyard-mobile.webp`
 - **Copy**: "Strong, vibrant, built to last."
-- **Features**: Clean design with elegant typography
+- **Positioning**: 35% from top edge on desktop, centered on mobile
+- **Features**: Full-width layout with responsive background images
 
-**Canvas Bags**:
-- **Background Image**: `images/products/canvas-bag-1.webp`
+**Custom T-Shirt Printing (Featured)**:
+- **Desktop Background**: `images/products/tshirt-desktop.webp`
+- **Mobile Background**: `images/products/tshirt-mobile.webp`
+- **Copy**: "A canvas for your design."
+- **Features**: Full-width layout with responsive background images
+
+##### Regular Product Cards (2-Column Grid)
+**Custom Canvas Bags**:
+- **Desktop Background**: `images/products/canvas-bag-desktop.webp`
+- **Mobile Background**: `images/products/canvas-bag-mobile.webp`
 - **Copy**: "Durable and eco-conscious."
-- **Features**: Background image approach with natural text positioning
+- **Features**: Responsive background images with desktop/mobile versions
 
-**Tote Bags**:
-- **Background Image**: `images/products/canvas-bag-2.webp`
-- **Copy**: "Practical. Reliable. Everyday ready."
-- **Features**: Background image approach with natural text positioning
-
-**Acrylic Keychains**:
-- **Background Image**: `images/products/acrylic-keychain.webp`
+**Custom Acrylic Keychains**:
+- **Desktop Background**: `images/products/keychain-desktop.webp`
+- **Mobile Background**: `images/products/keychain-mobile.webp`
 - **Copy**: "Compact, polished, memorable."
-- **Features**: Background image approach with natural text positioning
-
-**Badge Pins**:
-- **Background Image**: `images/products/badges.webp`
-- **Copy**: "Clear, precise, professional."
-- **Features**: Background image approach with natural text positioning
+- **Features**: Responsive background images with desktop/mobile versions
 
 ##### Feature Card
 ```css
@@ -375,7 +462,7 @@ The Teevent design system is built around Apple.com-inspired aesthetics that ref
 **Usage**: Presenting Teevent's solutions to pain points with expandable details
 **States**: Default, hover (enhanced shadow), modal open
 **Elements**: Background image, title, subtitle, plus button, modal content
-**Current Solution Cards**: 3 focused solutions with background images, plus buttons, and modal-based detailed content
+**Current Solution Cards**: 4 focused solutions with background images, plus buttons, and modal-based detailed content
 
 ##### Solution Cards (Current Implementation)
 **Fast Support**:
@@ -397,6 +484,13 @@ The Teevent design system is built around Apple.com-inspired aesthetics that ref
 - **Subtitle**: "We accept Canva.<br>Use what you have."
 - **Modal Content**: Story about Canva accessibility and student-friendly approach
 - **Text Styling**: Left-aligned with white text for dark background
+- **Plus Button**: Dark gray circular button with plus icon
+
+**Real Service**:
+- **Background Image**: `images/solution/after-sales.webp`
+- **Subtitle**: "Because responsibility doesn't end at shipping."
+- **Modal Content**: Story about taking full responsibility for quality issues and fixing them at no extra cost
+- **Text Styling**: Left-aligned with white text for better contrast
 - **Plus Button**: Dark gray circular button with plus icon
 
 ##### Modal System
@@ -437,6 +531,102 @@ The Teevent design system is built around Apple.com-inspired aesthetics that ref
 }
 ```
 
+#### Event Logos Section
+
+##### Event Logos Grid
+```css
+.event-logos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-8);
+    margin-top: var(--space-16);
+    align-items: center;
+    justify-items: center;
+}
+
+.event-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+    transition: all var(--transition-base);
+    opacity: 0.6;
+}
+
+.event-logo:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.logo-image {
+    max-width: 120px;
+    max-height: 60px;
+    width: auto;
+    height: auto;
+    filter: grayscale(100%);
+    transition: all var(--transition-base);
+}
+
+.event-logo:hover .logo-image {
+    filter: grayscale(0%);
+}
+```
+
+**Usage**: Building trust by showcasing client logos with interactive hover effects
+**States**: Default (grayscale, 60% opacity), hover (color, 100% opacity, scale 1.05x)
+**Elements**: 12 partner logos from Malaysian universities and events
+**Layout**: 4-column desktop, 2-column mobile grid
+**Theme**: Bright theme with grayscale-to-color transition effects
+
+#### Testimonials Section
+
+##### Testimonial Cards
+```css
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8);
+    margin-top: var(--space-16);
+}
+
+.testimonial-card {
+    background: var(--bg-bright-card);
+    padding: var(--space-8);
+    border-radius: var(--radius-3xl);
+    box-shadow: var(--shadow-bright-sm);
+    transition: all var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 280px;
+}
+
+.testimonial-card:hover {
+    box-shadow: var(--shadow-bright-lg);
+}
+
+.testimonial-stars {
+    display: flex;
+    gap: var(--space-1);
+    margin-bottom: var(--space-4);
+}
+
+.testimonial-text {
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--text-bright-primary);
+    font-style: italic;
+    margin: 0;
+}
+```
+
+**Usage**: Building credibility with real customer experiences and 5-star ratings
+**States**: Default, hover (enhanced shadow effect)
+**Elements**: 5-star rating, testimonial text, author name, university/role
+**Current Testimonials**: 4 customer reviews from UTAR, University Tunku Abdul Rahman, Sunway University, and UiTM
+**Layout**: 2-column desktop, single-column mobile grid
+**Theme**: Bright theme with clean typography and subtle hover effects
+
 #### Pain Points Section
 
 ##### Pain Point Cards with Chat Animations
@@ -469,7 +659,7 @@ The Teevent design system is built around Apple.com-inspired aesthetics that ref
 **Usage**: Demonstrating real pain points through interactive chat animations
 **States**: Default, hover (enhanced shadow)
 **Elements**: Chat animation, pain point title
-**Current Pain Points**: 3 interactive chat demonstrations with uniform card heights
+**Current Pain Points**: 4 interactive chat demonstrations with uniform card heights in 2-column desktop layout
 
 ##### Chat Animation System
 ```css
@@ -525,6 +715,20 @@ The Teevent design system is built around Apple.com-inspired aesthetics that ref
 - **Reaction**: Custom sad emoji (`images/lame-suppliers/sad-emoji.webp`)
 - **Demonstrates**: File format restrictions and inflexibility
 
+**Pain Point 4 - Quality Issues Deflection**:
+- **Customer Message**: "Hi, I just received the t-shirts. The stitching is really bad, loose threads everywhere." (2:15 PM)
+- **Supplier Reply**: "Sorry, that's outside our control. We only handle the printing." (4:59 PM)
+- **Reaction**: Custom skull emoji (`images/lame-suppliers/skull-emoji.webp`)
+- **Demonstrates**: Supplier deflection of responsibility for quality issues
+
+#### Hero Section
+
+**Background Image**: `images/hero/hero.webp` with full-screen coverage
+**Overlay**: 70% black overlay (`rgba(0, 0, 0, 0.7)`) for text readability
+**Mobile Optimization**: 80% viewport height on mobile to show more image content
+**Text Contrast**: White text with gradient effects for premium appearance
+**Responsive Behavior**: Auto-crop from sides on desktop, reduced height on mobile
+
 #### Navigation
 
 **Header**: Fixed navigation with backdrop blur effect and SVG logo
@@ -532,6 +736,23 @@ The Teevent design system is built around Apple.com-inspired aesthetics that ref
 **CTA Button**: Compact button in header with smaller padding and font size
 **Features**: Smooth scroll behavior and proper focus states
 **Responsive**: Narrow header design with optimized spacing
+
+#### Footer
+
+**Social Media Links**: Instagram, Email, and WhatsApp contact options
+**Instagram**: `https://www.instagram.com/team_teevent/` (opens in new tab)
+**Email**: `team.teevent@gmail.com` with copy-to-clipboard functionality
+**WhatsApp**: `https://wa.me/60123107525` (opens WhatsApp with pre-filled number)
+**Clean Design**: Simplified footer with three contact/social links
+
+#### Email Copy Functionality
+
+**Interactive Behavior**: Click to copy email address to clipboard
+**Notification System**: Pill-shaped notification with fade in/out effects
+**Cross-browser Support**: Modern clipboard API with fallback for older browsers
+**Visual Design**: White background with black text, matching button styling
+**Positioning**: Bottom-centered, positioned above footer links
+**Accessibility**: High contrast and clear visual feedback
 
 ### Animation System
 
@@ -605,13 +826,14 @@ The Teevent design system is built around Apple.com-inspired aesthetics that ref
 - **Problem-Solution Focus**: Clearly identify issues and present solutions
 
 #### Content Structure
-- **Hero**: Clear value proposition and primary CTA ("Start Your Project")
-- **Pain Points**: Interactive chat demonstrations of common problems with uniform card heights
-- **Solutions**: Modal-based solution cards with background images, plus buttons, and CTA button
-- **Products**: 6 product cards with background images and concise copywriting
-- **Features**: Service benefits with clean, focused messaging
-- **Vision**: Future platform vision with gradient text emphasis
-- **Contact**: Strong closing with call-to-action ("Email Us")
+- **Hero**: Background image with overlay, clear value proposition and primary CTA ("Start Your Order")
+- **Event Logos**: Client showcase with 12 partner logos and grayscale-to-color hover effects
+- **Pain Points**: 4 interactive chat demonstrations of common problems in 2-column desktop layout
+- **Solutions**: 4 modal-based solution cards with background images, plus buttons, and CTA button ("Work With Us")
+- **Products**: 4 product cards with SEO-optimized titles and responsive background images
+- **Testimonials**: 4 customer testimonials with 5-star ratings from Malaysian universities
+- **Contact**: Strong closing with call-to-action ("Request a Free Quote")
+- **Footer**: Social media links and contact information with email copy functionality
 
 ### Accessibility Standards
 
@@ -634,6 +856,29 @@ The Teevent design system is built around Apple.com-inspired aesthetics that ref
 - Respect `prefers-reduced-motion`
 - Provide option to disable animations
 - Ensure animations don't cause motion sickness
+
+### SEO Optimization
+
+#### Meta Tags
+- **Meta Description**: "Teevent is Malaysia's trusted supplier for custom event merchandise — from t-shirt printing and lanyards to tote bags and keychains. Fast support, honest pricing, and reliable quality."
+- **Meta Keywords**: "custom t shirt printing malaysia, customized lanyards malaysia, custom tote bag printing malaysia, event merchandise supplier malaysia, corporate t shirt printing malaysia, promotional merchandise malaysia"
+
+#### Heading Hierarchy
+- **H1**: Hero title ("You deserve better.")
+- **H2**: Section titles (Event Logos, Pain Points, Solutions, Products, Testimonials, Contact)
+- **H3**: Subsection titles (Pain Point titles, Solution titles, Product titles)
+
+#### Content Optimization
+- **Hero Subtitle**: SEO-optimized with keywords while maintaining Apple-style messaging
+- **Product Titles**: Consistent "Custom" terminology with SEO keywords
+- **Image Alt Tags**: Descriptive alt text with location and service keywords
+- **Title Attributes**: SEO-optimized descriptions for background images
+
+#### Keyword Strategy
+- **Primary Keywords**: "custom event merchandise Malaysia", "t-shirt printing Malaysia"
+- **Product Keywords**: "custom lanyards", "custom tote bags", "custom canvas bags"
+- **Service Keywords**: "event merchandise supplier", "promotional merchandise"
+- **Location Targeting**: Strong focus on "Malaysia" throughout content
 
 ### Performance Guidelines
 
@@ -753,6 +998,10 @@ This document serves as the central source of truth for:
 v2/
 ├── README.md              # This central document
 ├── index.html            # Main landing page with pain points and solutions sections
+├── sitemap.xml           # Search engine sitemap
+├── robots.txt            # Search engine crawling directives
+├── site.webmanifest      # Web app manifest for PWA functionality
+├── browserconfig.xml     # Microsoft browser configuration
 ├── styles/
 │   └── main.css         # Main stylesheet with design tokens, bright theme, and modal system
 ├── scripts/
@@ -761,6 +1010,8 @@ v2/
 │   ├── products/        # Product images for product cards
 │   │   ├── cotton-tshirt-1.webp
 │   │   └── lanyard-1-1.webp
+│   ├── event-logos/     # Client/partner logos for event logos section
+│   │   ├── 1.png through 16.png
 │   ├── lame-suppliers/  # Custom emoji reactions for chat animations
 │   │   ├── sweat-emoji.webp
 │   │   └── sad-emoji.webp
@@ -768,8 +1019,17 @@ v2/
 │   │   ├── fast-support.webp
 │   │   ├── honest-pricing.webp
 │   │   └── canva.webp
-│   └── Teevent Logo Redesign/
-│       └── apple landingpage inspired.svg
+│   ├── Teevent Logo Redesign/
+│   │   ├── teevent.svg  # Main logo (renamed from apple landingpage inspired.svg)
+│   │   ├── teevent-1.png through teevent-4.svg  # Logo variations
+│   │   └── favicon_io/  # Favicon files
+│   ├── favicon.ico       # Main favicon
+│   ├── favicon-16x16.png # 16x16 favicon
+│   ├── favicon-32x32.png # 32x32 favicon
+│   ├── apple-touch-icon.png # Apple touch icon
+│   ├── android-chrome-192x192.png # Android Chrome icon
+│   ├── android-chrome-512x512.png # Android Chrome icon
+│   └── site.webmanifest  # Web app manifest
 ├── docs/                 # Additional documentation
 │   └── modal-debugging-report.md  # Modal system debugging documentation
 └── [future components]   # As the project evolves
@@ -787,6 +1047,6 @@ In the future, Teevent aims to evolve beyond merchandise into a B2B event-suppli
 
 ---
 
-*Last updated: September 1, 2025*
+*Last updated: January 2025*
 *Maintainer: Development Team*
-*Version: 2.0 - Apple.com-Inspired Design System with Modal Integration*
+*Version: 2.5 - Footer Logo Integration, Enhanced CTA Messaging, and Service-Focused Content*

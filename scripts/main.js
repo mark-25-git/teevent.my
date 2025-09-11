@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize solution modals
     initializeSolutionModals();
     
+    // Initialize email copy functionality
+    initializeEmailCopy();
+    
     // Check for reduced motion preference
     checkReducedMotion();
 });
@@ -55,8 +58,14 @@ function initializeFadeAnimations() {
 function initializeSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            // Skip if href is just "#" (no target)
+            if (href === '#') {
+                return;
+            }
+            
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const target = document.querySelector(href);
             if (target) {
                 target.scrollIntoView({
                     behavior: 'smooth',
@@ -193,6 +202,112 @@ function initializeSolutionModals() {
             body.classList.remove('active');
         });
     }
+}
+
+/* ===================================
+   EMAIL COPY FUNCTIONALITY
+   =================================== */
+function initializeEmailCopy() {
+    const emailLink = document.getElementById('emailLink');
+    const emailAddress = 'team.teevent@gmail.com';
+    
+    if (!emailLink) {
+        console.error('Email link not found!');
+        return;
+    }
+    
+    // Remove focus outline
+    emailLink.style.outline = 'none';
+    emailLink.addEventListener('focus', function() {
+        this.style.outline = 'none';
+    });
+    
+    emailLink.addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        try {
+            // Copy email to clipboard
+            await navigator.clipboard.writeText(emailAddress);
+            
+            // Show notification
+            showEmailCopyNotification();
+            
+        } catch (err) {
+            console.error('Failed to copy email: ', err);
+            // Fallback for older browsers
+            fallbackCopyTextToClipboard(emailAddress);
+            showEmailCopyNotification();
+        }
+    });
+}
+
+function showEmailCopyNotification() {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'email-copy-notification';
+    notification.textContent = 'Email copied';
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--color-white);
+        color: var(--color-black);
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 10000;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        white-space: nowrap;
+        max-width: 90vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    `;
+    
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.opacity = '1';
+    }, 10);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+}
+
+function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.top = '0';
+    textArea.style.left = '0';
+    textArea.style.position = 'fixed';
+    textArea.style.opacity = '0';
+    
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+    } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+    }
+    
+    document.body.removeChild(textArea);
 }
 
 /* ===================================
