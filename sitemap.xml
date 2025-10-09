@@ -28,6 +28,22 @@
         <priority>0.7</priority>
     </url>
     
+    <!-- Connect Page -->
+    <url>
+        <loc>https://teevent.my/connect</loc>
+        <lastmod>2025-01-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Referral Page -->
+    <url>
+        <loc>https://teevent.my/referral</loc>
+        <lastmod>2025-01-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
 </urlset>
 
 

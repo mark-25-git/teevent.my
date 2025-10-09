@@ -1,4 +1,4 @@
-# Teevent - Custom Merch That Actually Matters
+# Teevent - Better Custom Merch Supplier in Malaysia
 
 ## Project Overview
 
@@ -217,6 +217,32 @@ The Teevent design system is built around Apple.com-inspired aesthetics that ref
 - Ensure responsive behavior across all breakpoints
 - Use max-width containers for optimal reading experience
 - 2-column desktop layout for 4-card sections (pain points, solutions)
+
+#### Mobile Full-Bleed Rule (Edge-to-Edge Cards/Grids)
+- **Goal**: On mobile, non-text UI elements (cards and grids) should span full screen width.
+- **Rule**: Remove horizontal padding on the page `container` at mobile breakpoint. Keep typography spacing intact by applying horizontal padding back to text wrappers only (e.g., `section headers`, CTA wrappers).
+- **CSS**:
+```css
+@media (max-width: 768px) {
+  /* Allow edge-to-edge layout */
+  .container { padding-left: 0; padding-right: 0; }
+
+  /* Preserve comfortable spacing for text content */
+  .section-header,
+  .solutions-cta,
+  .contact-section .container,
+  .vision-card,
+  .features-grid,
+  .supplier-hero-content,
+  .supplier-directory-title,
+  .supplier-directory-subtitle {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+}
+```
+- **Scope**: Apply consistently across all pages (e.g., `index.html`, `connect.html`, `referral.html`).
+- **Notes**: Do not change text styles or copy; this affects layout containers only.
 
 ### Component Library
 
