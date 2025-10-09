@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/referral.html",
+      "destination": "/referral",
+      "permanent": true
+    },
+    {
+      "source": "/connect.html",
+      "destination": "/connect",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/referral",
