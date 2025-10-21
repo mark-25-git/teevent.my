@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Your Quote</title>
+    <style>
+        /* ===================================
+           ROOT DESIGN TOKENS
+           =================================== */
+        :root {
+            --color-black: #000000;
+            --color-white: #ffffff;
+            --color-gray-200: #e5e5e5;
+            --color-gray-300: #d4d4d4;
+            --color-gray-500: #737373;
+            --color-gray-600: #525252;
+            --color-gray-900: #171717;
+            
+            --color-primary: #007AFF;
+            
+            --bg-bright-primary: var(--color-white);
+            --bg-bright-secondary: #f8f9fa;
+            --bg-bright-card: var(--color-white);
+            
+            --text-bright-primary: var(--color-black);
+            --text-bright-secondary: #495057;
+            --text-bright-tertiary: #6c757d;
+            
+            --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+            --text-5xl: 3rem;
+            
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-16: 4rem;
+            
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-3xl: 1.5rem;
+            --radius-full: 9999px;
+            
+            --shadow-bright-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-bright-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-bright-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            
+            --transition-base: 300ms ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            background: var(--bg-bright-secondary);
+            color: var(--text-bright-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-10) var(--space-5);
+        }
+
+        .header {
+            background: var(--bg-bright-card);
+            padding: var(--space-16) var(--space-10);
+            text-align: center;
+            border-radius: var(--radius-3xl);
+            margin-bottom: var(--space-10);
+        }
+
+        .header h1 {
+            font-size: var(--text-5xl);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: -0.5px;
+            margin-bottom: var(--space-3);
+        }
+
+        .header p {
+            font-size: var(--text-xl);
+            color: var(--text-bright-tertiary);
+        }
+
+        .mode-toggle {
+            background: var(--bg-bright-card);
+            padding: var(--space-6);
+            border-radius: var(--radius-2xl);
+            margin-bottom: var(--space-8);
+            display: flex;
+            gap: var(--space-4);
+            box-shadow: var(--shadow-bright-sm);
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: var(--space-4);
+            background: var(--bg-bright-secondary);
+            border: 2px solid transparent;
+            border-radius: var(--radius-xl);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--text-base);
+            color: var(--text-bright-primary);
+            font-family: inherit;
+        }
+
+        .mode-btn:hover {
+            border-color: var(--color-gray-300);
+        }
+
+        .mode-btn.active {
+            background: var(--color-black);
+            color: var(--color-white);
+            border-color: var(--color-black);
+        }
+
+        /* Preset Mode Styles */
+        .presets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-5);
+            margin-bottom: var(--space-8);
+        }
+
+        .preset-card {
+            background: var(--bg-bright-card);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-6);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            border: 2px solid transparent;
+            box-shadow: var(--shadow-bright-sm);
+        }
+
+        .preset-card:hover {
+            border-color: var(--color-gray-300);
+        }
+
+        .preset-card.selected {
+            border-color: var(--color-black);
+            box-shadow: var(--shadow-bright-lg);
+        }
+
+        .preset-badge {
+            display: inline-block;
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-xl);
+            font-size: var(--text-sm);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-3);
+            text-transform: uppercase;
+        }
+
+        .preset-card h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-3);
+        }
+
+        .preset-specs {
+            font-size: var(--text-sm);
+            color: var(--text-bright-tertiary);
+            line-height: 1.8;
+            margin-bottom: var(--space-3);
+        }
+
+        .preset-price {
+            font-size: var(--text-lg);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        /* Detailed Mode Styles (from index.html) */
+        .form-section {
+            padding: var(--space-10);
+            background: var(--bg-bright-card);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-bright-sm);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-8);
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-3);
+            font-size: var(--text-lg);
+        }
+
+        .button-group {
+            display: flex;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+        }
+
+        .toggle-btn {
+            padding: var(--space-2) var(--space-5);
+            background: var(--bg-bright-secondary);
+            border: 2px solid var(--color-gray-300);
+            border-radius: var(--radius-xl);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-weight: var(--font-weight-medium);
+            font-size: var(--text-base);
+            color: var(--text-bright-primary);
+            font-family: inherit;
+        }
+
+        .toggle-btn:hover {
+            background: #e8e8ed;
+            border-color: var(--color-gray-600);
+        }
+
+        .toggle-btn.active {
+            background: var(--color-black);
+            color: var(--color-white);
+            border-color: var(--color-black);
+        }
+
+        .printing-location {
+            background: var(--bg-bright-secondary);
+            padding: var(--space-5);
+            border-radius: var(--radius-2xl);
+            margin-bottom: var(--space-4);
+        }
+
+        .printing-location h3 {
+            font-size: var(--text-base);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-3);
+        }
+
+        .print-controls {
+            display: flex;
+            gap: var(--space-2);
+            align-items: stretch;
+            margin-bottom: var(--space-2);
+        }
+
+        .print-controls .input-field {
+            flex: 1;
+            padding: var(--space-2) var(--space-3);
+            font-size: var(--text-base);
+        }
+
+        .print-controls .button-group {
+            gap: var(--space-2);
+        }
+
+        .print-controls .toggle-btn {
+            padding: var(--space-2) var(--space-3);
+            font-size: var(--text-sm);
+            flex: 1;
+            white-space: nowrap;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--radius-xl);
+            font-size: var(--text-lg);
+            font-family: inherit;
+            transition: all var(--transition-base);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--color-black);
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .size-quick-select {
+            display: flex;
+            gap: var(--space-2);
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            padding: var(--space-2) var(--space-4);
+            border: 1px solid var(--color-gray-300);
+            background: var(--bg-bright-card);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            font-size: var(--text-sm);
+            font-weight: var(--font-weight-medium);
+            transition: all var(--transition-base);
+            font-family: inherit;
+        }
+
+        .size-btn:hover {
+            border-color: var(--color-black);
+            background: var(--bg-bright-secondary);
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: var(--space-4);
+            background: var(--color-black);
+            color: var(--color-white);
+            border: none;
+            border-radius: var(--radius-xl);
+            font-size: var(--text-lg);
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            margin-top: var(--space-4);
+        }
+
+        .calculate-btn:hover {
+            background: var(--color-gray-900);
+        }
+
+        /* Results */
+        .results-section {
+            display: none;
+            margin-top: var(--space-8);
+        }
+
+        .results-section.show {
+            display: block;
+        }
+
+        .price-display {
+            background: var(--bg-bright-card);
+            padding: var(--space-10);
+            border-radius: var(--radius-2xl);
+            text-align: center;
+            margin-bottom: var(--space-5);
+            box-shadow: var(--shadow-bright-lg);
+            border: 1px solid var(--color-gray-200);
+        }
+
+        .price-display h2 {
+            color: var(--text-bright-tertiary);
+            font-size: var(--text-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .price-range {
+            font-size: var(--text-5xl);
+            font-weight: var(--font-weight-bold);
+            margin: var(--space-5) 0;
+            letter-spacing: -1px;
+        }
+
+        .info-badge {
+            display: inline-block;
+            background: var(--bg-bright-secondary);
+            color: var(--text-bright-tertiary);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .price-details {
+            background: var(--bg-bright-card);
+            padding: var(--space-6);
+            border-radius: var(--radius-2xl);
+            margin-bottom: var(--space-5);
+            box-shadow: var(--shadow-bright-sm);
+        }
+
+        .price-details h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-5);
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-3) 0;
+            border-bottom: 1px solid var(--color-gray-200);
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--text-bright-tertiary);
+            font-size: var(--text-base);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .detail-value {
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--text-base);
+        }
+
+        .similar-orders {
+            background: var(--bg-bright-card);
+            padding: var(--space-6);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-bright-sm);
+            margin-bottom: var(--space-5);
+        }
+
+        .similar-orders h3 {
+            font-size: var(--text-xl);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-5);
+        }
+
+        .order-card {
+            background: var(--bg-bright-secondary);
+            padding: var(--space-5);
+            border-radius: var(--radius-xl);
+            margin-bottom: var(--space-3);
+            border: 1px solid var(--color-gray-200);
+            transition: all var(--transition-base);
+        }
+
+        .order-card:hover {
+            box-shadow: var(--shadow-bright-md);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-3);
+        }
+
+        .order-price {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .order-specs {
+            font-size: var(--text-sm);
+            color: var(--text-bright-tertiary);
+            line-height: 1.7;
+        }
+
+        /* Show/Hide Sections */
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: var(--text-4xl);
+            }
+
+            .mode-toggle {
+                flex-direction: column;
+            }
+
+            .presets {
+                grid-template-columns: 1fr;
+            }
+
+            .print-controls {
+                flex-wrap: wrap;
+            }
+
+            .print-controls .button-group {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Get Your Quote</h1>
+            <p>Instant pricing for custom t-shirt printing</p>
+        </div>
+
+        <!-- Mode Toggle -->
+        <div class="mode-toggle">
+            <button class="mode-btn active" onclick="switchMode('preset')">
+                Quick Packages
+            </button>
+            <button class="mode-btn" onclick="switchMode('custom')">
+                Custom Configuration
+            </button>
+        </div>
+
+        <!-- Preset Mode -->
+        <div id="presetMode">
+            <div class="presets">
+                <div class="preset-card selected" data-preset="classic" onclick="selectPreset('classic')">
+                    <span class="preset-badge">Popular</span>
+                    <h3>The Classic</h3>
+                    <div class="preset-specs">
+                        • Front: 10×10cm logo<br>
+                        • Back: A3 full design<br>
+                        • Full color
+                    </div>
+                    <div class="preset-price">Typical: RM 23-25</div>
+                </div>
+
+                <div class="preset-card" data-preset="premium" onclick="selectPreset('premium')">
+                    <span class="preset-badge">Premium</span>
+                    <h3>The Statement</h3>
+                    <div class="preset-specs">
+                        • Front: 10×10cm<br>
+                        • Back: A3 + Sleeves<br>
+                        • Full color
+                    </div>
+                    <div class="preset-price">Typical: RM 26-30</div>
+                </div>
+
+                <div class="preset-card" data-preset="simple" onclick="selectPreset('simple')">
+                    <span class="preset-badge">Budget</span>
+                    <h3>The Essential</h3>
+                    <div class="preset-specs">
+                        • Front: 7×7cm logo<br>
+                        • Back: A3 design<br>
+                        • Limited colors
+                    </div>
+                    <div class="preset-price">Typical: RM 20-23</div>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-bright-card); padding: var(--space-8); border-radius: var(--radius-2xl); box-shadow: var(--shadow-bright-sm);">
+                <h3 style="font-size: var(--text-xl); font-weight: var(--font-weight-semibold); margin-bottom: var(--space-4);">How many t-shirts?</h3>
+                <input type="number" id="quantityPreset" class="input-field" min="10" placeholder="Enter quantity" value="50">
+                <button class="calculate-btn" onclick="calculatePreset()">Calculate Quote</button>
+            </div>
+        </div>
+
+        <!-- Custom Mode -->
+        <div id="customMode" class="hidden">
+            <div class="form-section">
+                <form id="customForm" onsubmit="calculateCustom(event)">
+                    <div class="form-group">
+                        <label>Material</label>
+                        <div class="button-group">
+                            <button type="button" class="toggle-btn active" data-group="material" data-value="cotton">Cotton</button>
+                            <button type="button" class="toggle-btn" data-group="material" data-value="microfiber">Microfiber</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantityCustom">Order Quantity</label>
+                        <input type="number" id="quantityCustom" class="input-field" min="1" placeholder="Enter quantity" required>
+                    </div>
+
+                    <div class="printing-location">
+                        <h3>Front</h3>
+                        <div class="print-controls">
+                            <input type="number" id="frontWidth" class="input-field" placeholder="W" step="0.1" min="0" value="0">
+                            <input type="number" id="frontHeight" class="input-field" placeholder="H" step="0.1" min="0" value="0">
+                            <div class="button-group">
+                                <button type="button" class="toggle-btn active" data-group="frontColor" data-value="0">None</button>
+                                <button type="button" class="toggle-btn" data-group="frontColor" data-value="1">Mono</button>
+                                <button type="button" class="toggle-btn" data-group="frontColor" data-value="3">Multi</button>
+                                <button type="button" class="toggle-btn" data-group="frontColor" data-value="5">Full</button>
+                            </div>
+                        </div>
+                        <div class="size-quick-select">
+                            <button type="button" class="size-btn" onclick="setSize('front', 0, 0)">None</button>
+                            <button type="button" class="size-btn" onclick="setSize('front', 5, 5)">5×5</button>
+                            <button type="button" class="size-btn" onclick="setSize('front', 7, 7)">7×7</button>
+                            <button type="button" class="size-btn" onclick="setSize('front', 10, 10)">10×10</button>
+                            <button type="button" class="size-btn" onclick="setSize('front', 21, 29.7)">A4</button>
+                            <button type="button" class="size-btn" onclick="setSize('front', 29.7, 42)">A3</button>
+                        </div>
+                    </div>
+
+                    <div class="printing-location">
+                        <h3>Back</h3>
+                        <div class="print-controls">
+                            <input type="number" id="backWidth" class="input-field" placeholder="W" step="0.1" min="0" value="0">
+                            <input type="number" id="backHeight" class="input-field" placeholder="H" step="0.1" min="0" value="0">
+                            <div class="button-group">
+                                <button type="button" class="toggle-btn active" data-group="backColor" data-value="0">None</button>
+                                <button type="button" class="toggle-btn" data-group="backColor" data-value="1">Mono</button>
+                                <button type="button" class="toggle-btn" data-group="backColor" data-value="3">Multi</button>
+                                <button type="button" class="toggle-btn" data-group="backColor" data-value="5">Full</button>
+                            </div>
+                        </div>
+                        <div class="size-quick-select">
+                            <button type="button" class="size-btn" onclick="setSize('back', 0, 0)">None</button>
+                            <button type="button" class="size-btn" onclick="setSize('back', 5, 5)">5×5</button>
+                            <button type="button" class="size-btn" onclick="setSize('back', 7, 7)">7×7</button>
+                            <button type="button" class="size-btn" onclick="setSize('back', 10, 10)">10×10</button>
+                            <button type="button" class="size-btn" onclick="setSize('back', 21, 29.7)">A4</button>
+                            <button type="button" class="size-btn" onclick="setSize('back', 29.7, 42)">A3</button>
+                        </div>
+                    </div>
+
+                    <div class="printing-location">
+                        <h3>Left Sleeve</h3>
+                        <div class="print-controls">
+                            <input type="number" id="leftSleeveWidth" class="input-field" placeholder="W" step="0.1" min="0" value="0">
+                            <input type="number" id="leftSleeveHeight" class="input-field" placeholder="H" step="0.1" min="0" value="0">
+                            <div class="button-group">
+                                <button type="button" class="toggle-btn active" data-group="leftSleeveColor" data-value="0">None</button>
+                                <button type="button" class="toggle-btn" data-group="leftSleeveColor" data-value="1">Mono</button>
+                                <button type="button" class="toggle-btn" data-group="leftSleeveColor" data-value="3">Multi</button>
+                                <button type="button" class="toggle-btn" data-group="leftSleeveColor" data-value="5">Full</button>
+                            </div>
+                        </div>
+                        <div class="size-quick-select">
+                            <button type="button" class="size-btn" onclick="setSize('leftSleeve', 0, 0)">None</button>
+                            <button type="button" class="size-btn" onclick="setSize('leftSleeve', 5, 5)">5×5</button>
+                            <button type="button" class="size-btn" onclick="setSize('leftSleeve', 7, 7)">7×7</button>
+                            <button type="button" class="size-btn" onclick="setSize('leftSleeve', 10, 10)">10×10</button>
+                        </div>
+                    </div>
+
+                    <div class="printing-location">
+                        <h3>Right Sleeve</h3>
+                        <div class="print-controls">
+                            <input type="number" id="rightSleeveWidth" class="input-field" placeholder="W" step="0.1" min="0" value="0">
+                            <input type="number" id="rightSleeveHeight" class="input-field" placeholder="H" step="0.1" min="0" value="0">
+                            <div class="button-group">
+                                <button type="button" class="toggle-btn active" data-group="rightSleeveColor" data-value="0">None</button>
+                                <button type="button" class="toggle-btn" data-group="rightSleeveColor" data-value="1">Mono</button>
+                                <button type="button" class="toggle-btn" data-group="rightSleeveColor" data-value="3">Multi</button>
+                                <button type="button" class="toggle-btn" data-group="rightSleeveColor" data-value="5">Full</button>
+                            </div>
+                        </div>
+                        <div class="size-quick-select">
+                            <button type="button" class="size-btn" onclick="setSize('rightSleeve', 0, 0)">None</button>
+                            <button type="button" class="size-btn" onclick="setSize('rightSleeve', 5, 5)">5×5</button>
+                            <button type="button" class="size-btn" onclick="setSize('rightSleeve', 7, 7)">7×7</button>
+                            <button type="button" class="size-btn" onclick="setSize('rightSleeve', 10, 10)">10×10</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Custom Names/Department Numbers</label>
+                        <div class="button-group">
+                            <button type="button" class="toggle-btn active" data-group="customNames" data-value="no">No</button>
+                            <button type="button" class="toggle-btn" data-group="customNames" data-value="yes">Yes</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="calculate-btn">Calculate Quote</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <div class="price-display">
+                <h2>Suggested Price Range</h2>
+                <div class="price-range" id="priceRange">RM 22 - RM 28</div>
+                <div class="info-badge" id="confidenceBadge">Based on similar orders</div>
+            </div>
+
+            <div class="price-details">
+                <h3>Your Configuration</h3>
+                <div id="detailsList"></div>
+            </div>
+
+            <div class="similar-orders">
+                <h3>Similar Historical Orders</h3>
+                <div id="similarOrdersList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Reference data
+        const referenceData = [
+            {"material":"microfiber","printingMethod":"sublimation","frontArea":46,"backArea":1247.4,"leftSleeveArea":0,"rightSleeveArea":0,"frontColors":5,"backColors":5,"leftSleeveColors":0,"rightSleeveColors":0,"totalArea":1293.4,"maxColorComplexity":5,"numLocations":2,"customNames":true,"customNamesQty":52,"quantity":52,"actualPrice":28,"notes":"Full color sublimation"},
+            {"material":"microfiber","printingMethod":"silkscreen","frontArea":623.7,"backArea":1247.4,"leftSleeveArea":40,"rightSleeveArea":0,"frontColors":5,"backColors":5,"leftSleeveColors":1,"rightSleeveColors":0,"totalArea":1911.1,"maxColorComplexity":5,"numLocations":3,"customNames":true,"customNamesQty":35,"quantity":100,"actualPrice":24,"notes":"Silkscreen CMYK, high quantity"},
+            {"material":"microfiber","printingMethod":"dtf","frontArea":49,"backArea":1247.4,"leftSleeveArea":0,"rightSleeveArea":42,"frontColors":5,"backColors":5,"leftSleeveColors":0,"rightSleeveColors":5,"totalArea":1338.4,"maxColorComplexity":5,"numLocations":3,"customNames":true,"customNamesQty":44,"quantity":68,"actualPrice":22,"notes":"DTF full color multiple locations"},
+            {"material":"microfiber","printingMethod":"dtf","frontArea":40,"backArea":1247.4,"leftSleeveArea":45,"rightSleeveArea":0,"frontColors":5,"backColors":5,"leftSleeveColors":1,"rightSleeveColors":0,"totalArea":1332.4,"maxColorComplexity":5,"numLocations":3,"customNames":true,"customNamesQty":36,"quantity":97,"actualPrice":25,"notes":"DTF with custom names"},
+            {"material":"cotton","printingMethod":"dtf","frontArea":110.25,"backArea":1247.4,"leftSleeveArea":10,"rightSleeveArea":0,"frontColors":5,"backColors":1,"leftSleeveColors":2,"rightSleeveColors":0,"totalArea":1367.65,"maxColorComplexity":5,"numLocations":3,"customNames":false,"customNamesQty":0,"quantity":80,"actualPrice":22.5,"notes":"Cotton DTF"},
+            {"material":"cotton","printingMethod":"dtf","frontArea":100,"backArea":1247.4,"leftSleeveArea":0,"rightSleeveArea":0,"frontColors":5,"backColors":1,"leftSleeveColors":0,"rightSleeveColors":0,"totalArea":1347.4,"maxColorComplexity":5,"numLocations":2,"customNames":false,"customNamesQty":0,"quantity":16,"actualPrice":28,"notes":"Small quantity"},
+            {"material":"cotton","printingMethod":"dtf","frontArea":100,"backArea":1247.4,"leftSleeveArea":20,"rightSleeveArea":0,"frontColors":5,"backColors":1,"leftSleeveColors":1,"rightSleeveColors":0,"totalArea":1367.4,"maxColorComplexity":5,"numLocations":3,"customNames":false,"customNamesQty":0,"quantity":16,"actualPrice":28,"notes":"Small quantity with sleeves"},
+            {"material":"cotton","printingMethod":"dtf","frontArea":60,"backArea":1247.4,"leftSleeveArea":0,"rightSleeveArea":0,"frontColors":1,"backColors":1,"leftSleeveColors":0,"rightSleeveColors":0,"totalArea":1307.4,"maxColorComplexity":1,"numLocations":2,"customNames":false,"customNamesQty":0,"quantity":7,"actualPrice":28,"notes":"Very small quantity"},
+            {"material":"cotton","printingMethod":"dtf","frontArea":50,"backArea":1247.4,"leftSleeveArea":0,"rightSleeveArea":0,"frontColors":5,"backColors":5,"leftSleeveColors":0,"rightSleeveColors":0,"totalArea":1297.4,"maxColorComplexity":5,"numLocations":2,"customNames":false,"customNamesQty":0,"quantity":40,"actualPrice":23,"notes":"Full color DTF moderate quantity"}
+        ];
+
+        const presets = {
+            classic: {
+                name: 'The Classic',
+                material: 'cotton',
+                frontArea: 100,
+                backArea: 1247.4,
+                leftSleeveArea: 0,
+                rightSleeveArea: 0,
+                frontColors: 5,
+                backColors: 5,
+                leftSleeveColors: 0,
+                rightSleeveColors: 0
+            },
+            premium: {
+                name: 'The Statement',
+                material: 'cotton',
+                frontArea: 100,
+                backArea: 1247.4,
+                leftSleeveArea: 25,
+                rightSleeveArea: 25,
+                frontColors: 5,
+                backColors: 5,
+                leftSleeveColors: 3,
+                rightSleeveColors: 3
+            },
+            simple: {
+                name: 'The Essential',
+                material: 'cotton',
+                frontArea: 49,
+                backArea: 1247.4,
+                leftSleeveArea: 0,
+                rightSleeveArea: 0,
+                frontColors: 3,
+                backColors: 3,
+                leftSleeveColors: 0,
+                rightSleeveColors: 0
+            }
+        };
+
+        let selectedPresetKey = 'classic';
+        let currentMode = 'preset';
+
+        // Mode switching
+        function switchMode(mode) {
+            currentMode = mode;
+            
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (mode === 'preset') {
+                document.getElementById('presetMode').classList.remove('hidden');
+                document.getElementById('customMode').classList.add('hidden');
+            } else {
+                document.getElementById('presetMode').classList.add('hidden');
+                document.getElementById('customMode').classList.remove('hidden');
+            }
+            
+            // Hide results when switching modes
+            document.getElementById('resultsSection').classList.remove('show');
+        }
+
+        // Preset selection
+        function selectPreset(presetKey) {
+            selectedPresetKey = presetKey;
+            document.querySelectorAll('.preset-card').forEach(card => card.classList.remove('selected'));
+            document.querySelector(`[data-preset="${presetKey}"]`).classList.add('selected');
+        }
+
+        // Toggle buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toggle-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const group = this.getAttribute('data-group');
+                    document.querySelectorAll(`[data-group="${group}"]`).forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+        });
+
+        function getSelectedValue(group) {
+            const activeButton = document.querySelector(`[data-group="${group}"].active`);
+            return activeButton ? activeButton.getAttribute('data-value') : null;
+        }
+
+        function setSize(location, width, height) {
+            document.getElementById(`${location}Width`).value = width;
+            document.getElementById(`${location}Height`).value = height;
+            
+            if (width === 0 && height === 0) {
+                const colorGroup = `${location}Color`;
+                document.querySelectorAll(`[data-group="${colorGroup}"]`).forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.getAttribute('data-value') === '0') {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // Calculation logic with optimized weights
+        function calculateSimilarity(userSpec, refOrder) {
+            let score = 0;
+            
+            const baseWeights = {
+                quantity: 30,
+                totalArea: 25,
+                numLocations: 22,
+                maxColorComplexity: 17,
+                customNames: 5,
+                material: 1
+            };
+
+            if (userSpec.material === refOrder.material) {
+                score += baseWeights.material;
+            }
+
+            const areaDiff = Math.abs(userSpec.totalArea - refOrder.totalArea) / Math.max(userSpec.totalArea, refOrder.totalArea);
+            let areaScore;
+            if (refOrder.printingMethod === 'silkscreen') {
+                if (areaDiff < 0.1) areaScore = 1.0;
+                else if (areaDiff < 0.2) areaScore = 0.8;
+                else areaScore = Math.max(0, 1 - areaDiff / 0.3);
+            } else {
+                if (areaDiff < 0.3) areaScore = 1.0;
+                else areaScore = Math.max(0, 1 - areaDiff / 0.5);
+            }
+            score += baseWeights.totalArea * areaScore;
+
+            let colorScore;
+            if (refOrder.printingMethod === 'dtf') {
+                if (userSpec.maxColorComplexity > 0 && refOrder.maxColorComplexity > 0) {
+                    colorScore = 1.0;
+                } else if (userSpec.maxColorComplexity === 0 && refOrder.maxColorComplexity === 0) {
+                    colorScore = 1.0;
+                } else {
+                    colorScore = 0.5;
+                }
+            } else if (refOrder.printingMethod === 'silkscreen') {
+                const colorDiff = Math.abs(userSpec.maxColorComplexity - refOrder.maxColorComplexity);
+                if (colorDiff === 0) colorScore = 1.0;
+                else if (colorDiff === 1) colorScore = 0.7;
+                else if (colorDiff >= 4) colorScore = 0.2;
+                else colorScore = 0.5;
+            } else {
+                const colorDiff = Math.abs(userSpec.maxColorComplexity - refOrder.maxColorComplexity);
+                colorScore = Math.max(0, 1 - colorDiff / 5);
+            }
+            score += baseWeights.maxColorComplexity * colorScore;
+
+            let locationScore = userSpec.numLocations === refOrder.numLocations ? 1.0 : 
+                Math.max(0, 1 - Math.abs(userSpec.numLocations - refOrder.numLocations) / 4);
+            score += baseWeights.numLocations * locationScore;
+
+            let quantityWeight = refOrder.printingMethod === 'silkscreen' ? 30 : baseWeights.quantity;
+            const qtyDiff = Math.abs(userSpec.quantity - refOrder.quantity) / Math.max(userSpec.quantity, refOrder.quantity);
+            score += quantityWeight * Math.max(0, 1 - qtyDiff / 0.5);
+
+            if (userSpec.customNames === refOrder.customNames) {
+                score += baseWeights.customNames;
+            }
+
+            return score;
+        }
+
+        function formatColorComplexity(colors) {
+            if (colors === 0) return 'None';
+            if (colors === 1) return 'Mono (1 color)';
+            if (colors <= 4) return `Multi (${colors} colors)`;
+            return 'Full Color';
+        }
+
+        function displayResults(userSpec, topMatches, adjustedMin, adjustedMax, adjustedAvg) {
+            document.getElementById('priceRange').textContent = 
+                `RM ${adjustedMin.toFixed(2)} - RM ${adjustedMax.toFixed(2)}`;
+            document.getElementById('confidenceBadge').textContent = 
+                `Average: RM ${adjustedAvg.toFixed(2)} | Based on ${topMatches.length} similar orders`;
+
+            const detailsList = document.getElementById('detailsList');
+            const details = [
+                { label: currentMode === 'preset' ? 'Package' : 'Material', value: currentMode === 'preset' ? presets[selectedPresetKey].name : userSpec.material.charAt(0).toUpperCase() + userSpec.material.slice(1) },
+                { label: 'Total Print Area', value: `${userSpec.totalArea.toFixed(1)} cm²` },
+                { label: 'Print Locations', value: `${userSpec.numLocations} location${userSpec.numLocations !== 1 ? 's' : ''}` },
+                { label: 'Color Complexity', value: formatColorComplexity(userSpec.maxColorComplexity) },
+                { label: 'Quantity', value: `${userSpec.quantity} pieces` }
+            ];
+
+            if (currentMode === 'custom' && userSpec.customNames) {
+                details.push({ label: 'Custom Names', value: 'Yes (+RM 1-3/pc)' });
+            }
+
+            detailsList.innerHTML = details.map(d => `
+                <div class="detail-item">
+                    <span class="detail-label">${d.label}</span>
+                    <span class="detail-value">${d.value}</span>
+                </div>
+            `).join('');
+
+            const similarOrdersList = document.getElementById('similarOrdersList');
+            similarOrdersList.innerHTML = topMatches.map((order, idx) => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <span><strong>Match #${idx + 1}</strong> (${order.similarity.toFixed(0)}% similar)</span>
+                        <span class="order-price">RM ${order.actualPrice.toFixed(2)}</span>
+                    </div>
+                    <div class="order-specs">
+                        ${order.printingMethod.toUpperCase()} • 
+                        ${order.totalArea.toFixed(0)} cm² • 
+                        ${formatColorComplexity(order.maxColorComplexity)} • 
+                        ${order.quantity} pcs
+                        <br><em>${order.notes}</em>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('resultsSection').classList.add('show');
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function runCalculation(userSpec) {
+            userSpec.totalArea = userSpec.frontArea + userSpec.backArea + userSpec.leftSleeveArea + userSpec.rightSleeveArea;
+            userSpec.maxColorComplexity = Math.max(userSpec.frontColors, userSpec.backColors, userSpec.leftSleeveColors, userSpec.rightSleeveColors);
+            userSpec.numLocations = (userSpec.frontArea > 0 ? 1 : 0) + (userSpec.backArea > 0 ? 1 : 0) + 
+                                   (userSpec.leftSleeveArea > 0 ? 1 : 0) + (userSpec.rightSleeveArea > 0 ? 1 : 0);
+
+            const similarOrders = referenceData.map(order => ({
+                ...order,
+                similarity: calculateSimilarity(userSpec, order)
+            })).sort((a, b) => b.similarity - a.similarity);
+
+            const topMatches = similarOrders.slice(0, 5);
+            const prices = topMatches.map(o => o.actualPrice);
+            
+            let qtyFactor = 1.0;
+            if (userSpec.quantity < 20) qtyFactor = 1.15;
+            else if (userSpec.quantity < 50) qtyFactor = 1.05;
+            else if (userSpec.quantity >= 100) qtyFactor = 0.95;
+
+            const adjustedMin = Math.round(Math.min(...prices) * qtyFactor * 100) / 100;
+            const adjustedMax = Math.round(Math.max(...prices) * qtyFactor * 100) / 100;
+            const adjustedAvg = Math.round((prices.reduce((a, b) => a + b) / prices.length) * qtyFactor * 100) / 100;
+
+            displayResults(userSpec, topMatches, adjustedMin, adjustedMax, adjustedAvg);
+        }
+
+        // Preset calculation
+        function calculatePreset() {
+            const quantity = parseInt(document.getElementById('quantityPreset').value) || 50;
+            const preset = presets[selectedPresetKey];
+            
+            const userSpec = {
+                ...preset,
+                quantity: quantity,
+                customNames: false
+            };
+
+            runCalculation(userSpec);
+        }
+
+        // Custom calculation
+        function calculateCustom(e) {
+            e.preventDefault();
+
+            const userSpec = {
+                material: getSelectedValue('material'),
+                frontArea: parseFloat(document.getElementById('frontWidth').value || 0) * 
+                          parseFloat(document.getElementById('frontHeight').value || 0),
+                backArea: parseFloat(document.getElementById('backWidth').value || 0) * 
+                         parseFloat(document.getElementById('backHeight').value || 0),
+                leftSleeveArea: parseFloat(document.getElementById('leftSleeveWidth').value || 0) * 
+                               parseFloat(document.getElementById('leftSleeveHeight').value || 0),
+                rightSleeveArea: parseFloat(document.getElementById('rightSleeveWidth').value || 0) * 
+                                parseFloat(document.getElementById('rightSleeveHeight').value || 0),
+                frontColors: parseInt(getSelectedValue('frontColor')),
+                backColors: parseInt(getSelectedValue('backColor')),
+                leftSleeveColors: parseInt(getSelectedValue('leftSleeveColor')),
+                rightSleeveColors: parseInt(getSelectedValue('rightSleeveColor')),
+                quantity: parseInt(document.getElementById('quantityCustom').value),
+                customNames: getSelectedValue('customNames') === 'yes'
+            };
+
+            runCalculation(userSpec);
+        }
+
+        // Auto-select first preset
+        selectPreset('classic');
+    </script>
+</body>
+</html>
+
+

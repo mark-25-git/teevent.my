@@ -1,7 +1,7 @@
 {
     "name": "Teevent - Custom Event Merchandise Malaysia",
     "short_name": "Teevent",
-    "description": "Malaysia's better supplier for custom event merchandise — from t-shirt printing and lanyards to tote bags and keychains. Fast support, honest pricing, and reliable quality.",
+    "description": "Custom event merchandise in Malaysia. T-shirt printing, lanyards, tote bags, and badges with fast support you can count on.",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#000000",
@@ -12,28 +12,13 @@
     "categories": ["business", "shopping", "productivity"],
     "icons": [
         {
-            "src": "images/favicon-16x16.png",
-            "sizes": "16x16",
-            "type": "image/png"
-        },
-        {
-            "src": "images/favicon-32x32.png",
-            "sizes": "32x32",
-            "type": "image/png"
-        },
-        {
-            "src": "images/apple-touch-icon.png",
-            "sizes": "180x180",
-            "type": "image/png"
-        },
-        {
-            "src": "images/android-chrome-192x192.png",
+            "src": "images/favicon/web-app-manifest-192x192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "images/android-chrome-512x512.png",
+            "src": "images/favicon/web-app-manifest-512x512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
@@ -55,8 +40,8 @@
             "url": "/#contact",
             "icons": [
                 {
-                    "src": "images/favicon-32x32.png",
-                    "sizes": "32x32"
+                    "src": "images/favicon/favicon-96x96.png",
+                    "sizes": "96x96"
                 }
             ]
         }

@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeProductForms();
     initializePriceSearch();
     initializePastEventsModal();
+    initializeQuoteToggle();
 });
 
 /* ===================================
@@ -1177,6 +1178,83 @@ function hideDropdown() {
     if (searchDropdown) {
         searchDropdown.style.display = 'none';
     }
+}
+
+/* ===================================
+   QUOTE CALCULATOR MODAL
+   =================================== */
+function initializeQuoteToggle() {
+    const getQuoteBtn = document.getElementById('getQuoteBtn');
+    const quoteCalculatorModal = document.getElementById('quoteCalculatorModal');
+    const quoteModalClose = document.getElementById('quoteModalClose');
+    const quoteModalOverlay = document.getElementById('quoteModalOverlay');
+    const modeButtons = document.querySelectorAll('.quote-mode-btn');
+    const presetMode = document.getElementById('presetMode');
+    const customMode = document.getElementById('customMode');
+    
+    if (!getQuoteBtn || !quoteCalculatorModal) return;
+    
+    // Open modal when "Get Quote Now" is clicked
+    getQuoteBtn.addEventListener('click', () => {
+        quoteCalculatorModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+    });
+    
+    // Close modal function
+    const closeModal = () => {
+        quoteCalculatorModal.style.display = 'none';
+        document.body.style.overflow = ''; // Restore scroll
+    };
+    
+    // Close modal on close button click
+    if (quoteModalClose) {
+        quoteModalClose.addEventListener('click', closeModal);
+    }
+    
+    // Close modal on overlay click
+    if (quoteModalOverlay) {
+        quoteModalOverlay.addEventListener('click', closeModal);
+    }
+    
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && quoteCalculatorModal.style.display === 'flex') {
+            closeModal();
+        }
+    });
+    
+    // Handle mode selection
+    modeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            modeButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            const selectedMode = button.getAttribute('data-mode');
+            
+            // Update currentMode in quote-calculator.js
+            if (typeof window.currentMode !== 'undefined') {
+                window.currentMode = selectedMode;
+            }
+            
+            // Switch between preset and custom modes
+            if (selectedMode === 'preset') {
+                if (presetMode) presetMode.classList.remove('hidden');
+                if (customMode) customMode.classList.add('hidden');
+            } else {
+                if (presetMode) presetMode.classList.add('hidden');
+                if (customMode) customMode.classList.remove('hidden');
+            }
+            
+            // Hide results when switching modes
+            const resultsSection = document.getElementById('resultsSection');
+            if (resultsSection) {
+                resultsSection.classList.remove('show');
+            }
+        });
+    });
 }
 
 /* ===================================

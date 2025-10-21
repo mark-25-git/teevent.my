@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teevent - Custom Event Merchandise</title>
-    <meta name="description" content="Teevent is Malaysia's better supplier for custom event merchandise — from t-shirt printing and lanyards to tote bags and keychains. Fast support, honest pricing, and reliable quality.">
+    <meta name="description" content="Custom event merchandise in Malaysia. T-shirt printing, lanyards, tote bags, and badges with fast support you can count on.">
     <meta name="keywords" content="custom t shirt printing malaysia, customized lanyards malaysia, custom tote bag printing malaysia, event merchandise supplier malaysia, corporate t shirt printing malaysia, promotional merchandise malaysia, custom canvas bags malaysia, acrylic keychains malaysia, custom pin badges malaysia, university event merchandise malaysia">
     
     <!-- Open Graph / Facebook -->
@@ -42,15 +42,13 @@
     <meta name="revisit-after" content="7 days">
     
     <!-- Favicon and App Icons -->
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <link rel="icon" type="image/svg+xml" href="images/Teevent Logo Redesign/teevent.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-    <link rel="manifest" href="images/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="images/favicon/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="images/favicon/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="images/favicon/site.webmanifest">
     <meta name="theme-color" content="#007AFF">
     <meta name="msapplication-TileColor" content="#007AFF">
-    <meta name="msapplication-config" content="browserconfig.xml">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Performance Optimization -->
@@ -78,7 +76,7 @@
         "alternateName": "Teevent Malaysia",
         "url": "https://teevent.my",
         "logo": "https://teevent.my/images/Teevent Logo Redesign/teevent.svg",
-        "description": "Malaysia's better supplier for custom event merchandise — from t-shirt printing and lanyards to tote bags and keychains. Fast support, honest pricing, and reliable quality.",
+        "description": "Custom event merchandise in Malaysia. T-shirt printing, lanyards, tote bags, and badges with fast support you can count on.",
         "foundingDate": "2024",
         "founder": {
             "@type": "Person",
@@ -205,11 +203,9 @@
     <main>
 
         <!-- Hero Section -->
-        <section class="hero section-padding" itemscope itemtype="https://schema.org/WebPageElement">
-            <!-- Video Background -->
+        <!-- <section class="hero section-padding" itemscope itemtype="https://schema.org/WebPageElement">
             <video class="hero-video" autoplay muted loop playsinline aria-hidden="true" preload="metadata">
                 <source src="images/hero/hero_animation.webm" type="video/webm">
-                <!-- Fallback for browsers that don't support video -->
                 Your browser does not support the video tag.
             </video>
             <div class="hero-content">
@@ -223,95 +219,327 @@
                     Start Your Order
                 </a>
             </div>
+        </section> -->
+
+        <!-- Hero Section (Duplicate) -->
+        <section class="hero section-padding" itemscope itemtype="https://schema.org/WebPageElement">
+            <div class="hero-content">
+                <h1 class="hero-title fade-in gradient-text" itemprop="headline">
+                    Get Your Instant Quote
+                </h1>
+                <button class="btn-primary hero-cta fade-in" aria-label="Try now" id="getQuoteBtn">
+                    Try Now
+                </button>
+            </div>
         </section>
+
+        <!-- Quote Calculator Modal -->
+        <div class="quote-calculator-modal" id="quoteCalculatorModal" style="display: none;">
+            <div class="modal-overlay" id="quoteModalOverlay"></div>
+            <div class="quote-modal-content">
+                <div class="quote-modal-body">
+                    <button class="modal-close" id="quoteModalClose" aria-label="Close calculator">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                    
+                    <h2 class="modal-title">T-Shirt Quote Calculator <span class="beta-badge">Beta</span></h2>
+                    <p class="modal-subtitle">These quotations are indicative. Actual pricing will be confirmed during the quoting process with our <a href="https://wa.me/60137482481?text=Hi%20Teevent!%20I%27d%20like%20to%20get%20an%20accurate%20quote%20for%20my%20order." target="_blank" rel="noopener noreferrer" class="team-link">team</a>.</p>
+                    
+                    <!-- Mode Toggle Inside Modal -->
+                    <div class="quote-mode-toggle-modal" id="quoteModeToggle">
+                        <button class="quote-mode-btn active" data-mode="preset">
+                            Preset
+                        </button>
+                        <button class="quote-mode-btn" data-mode="custom">
+                            Draft
+                        </button>
+                    </div>
+                
+                <!-- Preset Mode -->
+                <div id="presetMode">
+                    <div class="presets-grid">
+                        <div class="preset-card selected" data-preset="classic" onclick="selectPreset('classic')">
+                            <span class="preset-badge">Popular</span>
+                            <h3>The Classic</h3>
+                            <div class="preset-specs">
+                                • Front: 10×10cm<br>
+                                • Back: A3<br>
+                                • Full color
+                            </div>
+                        </div>
+
+                        <div class="preset-card" data-preset="premium" onclick="selectPreset('premium')">
+                            <span class="preset-badge">Premium</span>
+                            <h3>The Statement</h3>
+                            <div class="preset-specs">
+                                • Front: 10×10cm<br>
+                                • Back: A3<br>
+                                • Sleeves: 7×7cm<br>
+                                • Full color
+                            </div>
+                        </div>
+
+                        <div class="preset-card" data-preset="simple" onclick="selectPreset('simple')">
+                            <span class="preset-badge">Budget</span>
+                            <h3>The Essential</h3>
+                            <div class="preset-specs">
+                                • Front: 7×7cm<br>
+                                • Back: A3<br>
+                                • Limited colors
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quantity-input-card">
+                        <h3>How many t-shirts?</h3>
+                        <input type="number" id="quantityPreset" class="quote-input-field" min="10" placeholder="Enter quantity" value="50">
+                        <button class="calculate-btn" onclick="calculatePreset()">Calculate Quote</button>
+                    </div>
+                </div>
+
+                <!-- Custom Mode -->
+                <div id="customMode" class="hidden">
+                    <div class="custom-form-section">
+                        <form id="customForm" onsubmit="calculateCustom(event)">
+                            <div class="form-group">
+                                <label>Material</label>
+                                <div class="button-group">
+                                    <button type="button" class="toggle-option-btn active" data-group="material" data-value="cotton">Cotton</button>
+                                    <button type="button" class="toggle-option-btn" data-group="material" data-value="microfiber">Microfiber</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="quantityCustom">Order Quantity</label>
+                                <input type="number" id="quantityCustom" class="quote-input-field" min="1" placeholder="Enter quantity" required>
+                            </div>
+
+                            <div class="printing-location-card">
+                                <h3>Front</h3>
+                                <div class="print-location-layout">
+                                    <div class="print-location-left">
+                                        <label class="print-location-label">Size</label>
+                                        <div class="print-controls">
+                                            <input type="number" id="frontWidth" class="quote-input-field" placeholder="W" step="0.1" min="0" value="0">
+                                            <input type="number" id="frontHeight" class="quote-input-field" placeholder="H" step="0.1" min="0" value="0">
+                                        </div>
+                                        <div class="size-quick-select">
+                                            <button type="button" class="size-select-btn" onclick="setSize('front', 0, 0)">None</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('front', 5, 5)">5×5</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('front', 7, 7)">7×7</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('front', 10, 10)">10×10</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('front', 21, 29.7)">A4</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('front', 29.7, 42)">A3</button>
+                                        </div>
+                                    </div>
+                                    <div class="print-location-right">
+                                        <label class="print-location-label">Color</label>
+                                        <div class="button-group">
+                                            <button type="button" class="toggle-option-btn active" data-group="frontColor" data-value="0">None</button>
+                                            <button type="button" class="toggle-option-btn" data-group="frontColor" data-value="1">Mono</button>
+                                            <button type="button" class="toggle-option-btn" data-group="frontColor" data-value="3">Multi</button>
+                                            <button type="button" class="toggle-option-btn" data-group="frontColor" data-value="5">Full</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="printing-location-card">
+                                <h3>Back</h3>
+                                <div class="print-location-layout">
+                                    <div class="print-location-left">
+                                        <label class="print-location-label">Size</label>
+                                        <div class="print-controls">
+                                            <input type="number" id="backWidth" class="quote-input-field" placeholder="W" step="0.1" min="0" value="0">
+                                            <input type="number" id="backHeight" class="quote-input-field" placeholder="H" step="0.1" min="0" value="0">
+                                        </div>
+                                        <div class="size-quick-select">
+                                            <button type="button" class="size-select-btn" onclick="setSize('back', 0, 0)">None</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('back', 5, 5)">5×5</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('back', 7, 7)">7×7</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('back', 10, 10)">10×10</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('back', 21, 29.7)">A4</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('back', 29.7, 42)">A3</button>
+                                        </div>
+                                    </div>
+                                    <div class="print-location-right">
+                                        <label class="print-location-label">Color</label>
+                                        <div class="button-group">
+                                            <button type="button" class="toggle-option-btn active" data-group="backColor" data-value="0">None</button>
+                                            <button type="button" class="toggle-option-btn" data-group="backColor" data-value="1">Mono</button>
+                                            <button type="button" class="toggle-option-btn" data-group="backColor" data-value="3">Multi</button>
+                                            <button type="button" class="toggle-option-btn" data-group="backColor" data-value="5">Full</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="printing-location-card">
+                                <h3>Left Sleeve</h3>
+                                <div class="print-location-layout">
+                                    <div class="print-location-left">
+                                        <label class="print-location-label">Size</label>
+                                        <div class="print-controls">
+                                            <input type="number" id="leftSleeveWidth" class="quote-input-field" placeholder="W" step="0.1" min="0" value="0">
+                                            <input type="number" id="leftSleeveHeight" class="quote-input-field" placeholder="H" step="0.1" min="0" value="0">
+                                        </div>
+                                        <div class="size-quick-select">
+                                            <button type="button" class="size-select-btn" onclick="setSize('leftSleeve', 0, 0)">None</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('leftSleeve', 5, 5)">5×5</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('leftSleeve', 7, 7)">7×7</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('leftSleeve', 10, 10)">10×10</button>
+                                        </div>
+                                    </div>
+                                    <div class="print-location-right">
+                                        <label class="print-location-label">Color</label>
+                                        <div class="button-group">
+                                            <button type="button" class="toggle-option-btn active" data-group="leftSleeveColor" data-value="0">None</button>
+                                            <button type="button" class="toggle-option-btn" data-group="leftSleeveColor" data-value="1">Mono</button>
+                                            <button type="button" class="toggle-option-btn" data-group="leftSleeveColor" data-value="3">Multi</button>
+                                            <button type="button" class="toggle-option-btn" data-group="leftSleeveColor" data-value="5">Full</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="printing-location-card">
+                                <h3>Right Sleeve</h3>
+                                <div class="print-location-layout">
+                                    <div class="print-location-left">
+                                        <label class="print-location-label">Size</label>
+                                        <div class="print-controls">
+                                            <input type="number" id="rightSleeveWidth" class="quote-input-field" placeholder="W" step="0.1" min="0" value="0">
+                                            <input type="number" id="rightSleeveHeight" class="quote-input-field" placeholder="H" step="0.1" min="0" value="0">
+                                        </div>
+                                        <div class="size-quick-select">
+                                            <button type="button" class="size-select-btn" onclick="setSize('rightSleeve', 0, 0)">None</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('rightSleeve', 5, 5)">5×5</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('rightSleeve', 7, 7)">7×7</button>
+                                            <button type="button" class="size-select-btn" onclick="setSize('rightSleeve', 10, 10)">10×10</button>
+                                        </div>
+                                    </div>
+                                    <div class="print-location-right">
+                                        <label class="print-location-label">Color</label>
+                                        <div class="button-group">
+                                            <button type="button" class="toggle-option-btn active" data-group="rightSleeveColor" data-value="0">None</button>
+                                            <button type="button" class="toggle-option-btn" data-group="rightSleeveColor" data-value="1">Mono</button>
+                                            <button type="button" class="toggle-option-btn" data-group="rightSleeveColor" data-value="3">Multi</button>
+                                            <button type="button" class="toggle-option-btn" data-group="rightSleeveColor" data-value="5">Full</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Custom Names/Department Numbers</label>
+                                <div class="button-group">
+                                    <button type="button" class="toggle-option-btn active" data-group="customNames" data-value="no">No</button>
+                                    <button type="button" class="toggle-option-btn" data-group="customNames" data-value="yes">Yes</button>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="calculate-btn">Calculate Quote</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="quote-results-section" id="resultsSection">
+                    <div class="price-display-card">
+                        <h2>Suggested Price Range</h2>
+                        <div class="price-range-value" id="priceRange">RM 22 - RM 28</div>
+                        <div class="confidence-badge" id="confidenceBadge">Based on similar orders</div>
+                    </div>
+
+                    <div class="price-details-card">
+                        <h3>Your Configuration</h3>
+                        <div id="detailsList"></div>
+                    </div>
+
+                    <!-- <div class="similar-orders-card">
+                        <h3>Similar Historical Orders</h3>
+                        <div id="similarOrdersList"></div>
+                    </div> -->
+                </div>
+
+                </div>
+            </div>
+        </div>
 
         <!-- Event Logos Section -->
         <section class="section-padding event-logos-section">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title fade-in">Trusted by events across Malaysia</h2>
-                    <p class="section-subtitle fade-in">From university clubs to corporate conferences, organizers across Malaysia choose us for custom t-shirts, lanyards, and branded event merchandise.</p>
                 </div>
                 
                 <div class="event-logos-grid">
-                    <!-- Event Logo 01 - TEDxUTAR -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/01-tedxutar.png" alt="TEDxUTAR - University event merchandise Malaysia partner" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 02 - AIESEC -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/02-aiesec.png" alt="AIESEC - Custom t-shirt printing Malaysia client" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 03 - FMS KL&P -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/03-fms-kl&p.png" alt="FMS KL&P - Customized lanyards Malaysia event organizer" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 17 - UTAR NSC -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/17-utar-nsc.png" alt="UTAR NSC - Event merchandise supplier Malaysia partner" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 1 - RhythmFest24 -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/1-rhythmfest24.png" alt="RhythmFest24 - University event merchandise Malaysia partner" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 2 - Enlight5 -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/2-enlight5.png" alt="Enlight5 - Custom t-shirt printing Malaysia client" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 3 - Insight Ignition -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/3-insight-ignition.png" alt="Insight Ignition - Customized lanyards Malaysia event organizer" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 4 - IBT UTAR -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/4-ibt-utar.png" alt="IBT UTAR - Corporate t-shirt printing Malaysia client" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 5 - BDC UTAR -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/5-bdc-utar.png" alt="BDC UTAR - Custom tote bag printing Malaysia partner" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 6 - Sports Glory UTAR -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/6-sports-glory-utar.png" alt="Sports Glory UTAR - Promotional merchandise Malaysia event" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 7 - SES9 -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/7-ses9.png" alt="SES9 - Custom canvas bags Malaysia organizer" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 8 - UAS -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/8-uas.png" alt="UAS - Event merchandise supplier Malaysia client" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 9 - CLW UTAR -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/9-clw-utar.png" alt="CLW UTAR - Custom acrylic keychains Malaysia partner" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 10 - CSS UTAR -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/10-css-utar.png" alt="CSS UTAR - Custom pin badges Malaysia event organizer" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 11 - Glimpse -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/11-glimpse.png" alt="Glimpse - University event merchandise Malaysia supplier" class="logo-image">
-                    </div>
-                    
-                    <!-- Event Logo 12 - ISC UTAR -->
-                    <div class="event-logo fade-in">
-                        <img src="images/event-logos/12-isc-utar.png" alt="ISC UTAR - Custom event merchandise Malaysia client" class="logo-image">
+                    <div class="event-logos-scroll">
+                        <!-- First set of logos -->
+                        <div class="event-logo">
+                            <img src="images/event-logos/01-tedxutar.png" alt="TEDxUTAR - University event merchandise Malaysia partner" class="logo-image">
+                        </div>
+                        
+                        <div class="event-logo">
+                            <img src="images/event-logos/02-aiesec.png" alt="AIESEC - Custom t-shirt printing Malaysia client" class="logo-image">
+                        </div>
+                        
+                        <div class="event-logo">
+                            <img src="images/event-logos/03-fms-kl&p.png" alt="FMS KL&P - Customized lanyards Malaysia event organizer" class="logo-image">
+                        </div>
+                        
+                        <div class="event-logo">
+                            <img src="images/event-logos/7-ses9.png" alt="SES9 - Custom canvas bags Malaysia organizer" class="logo-image">
+                        </div>
+                        
+                        <div class="event-logo">
+                            <img src="images/event-logos/3-insight-ignition.png" alt="Insight Ignition - Customized lanyards Malaysia event organizer" class="logo-image">
+                        </div>
+                        
+                        <!-- Duplicate set 1 for seamless loop -->
+                        <div class="event-logo">
+                            <img src="images/event-logos/01-tedxutar.png" alt="TEDxUTAR - University event merchandise Malaysia partner" class="logo-image">
+                        </div>
+                        
+                        <div class="event-logo">
+                            <img src="images/event-logos/02-aiesec.png" alt="AIESEC - Custom t-shirt printing Malaysia client" class="logo-image">
+                        </div>
+                        
+                        <div class="event-logo">
+                            <img src="images/event-logos/03-fms-kl&p.png" alt="FMS KL&P - Customized lanyards Malaysia event organizer" class="logo-image">
+                        </div>
+                        
+                        <div class="event-logo">
+                            <img src="images/event-logos/7-ses9.png" alt="SES9 - Custom canvas bags Malaysia organizer" class="logo-image">
+                        </div>
+                        
+                        <div class="event-logo">
+                            <img src="images/event-logos/3-insight-ignition.png" alt="Insight Ignition - Customized lanyards Malaysia event organizer" class="logo-image">
+                        </div>
+                        
+                        <!-- Duplicate set 2 for extra smooth loop -->
+                        <div class="event-logo">
+                            <img src="images/event-logos/01-tedxutar.png" alt="TEDxUTAR - University event merchandise Malaysia partner" class="logo-image">
+                        </div>
+                        
+                        <div class="event-logo">
+                            <img src="images/event-logos/02-aiesec.png" alt="AIESEC - Custom t-shirt printing Malaysia client" class="logo-image">
+                        </div>
+                        
+                        <div class="event-logo">
+                            <img src="images/event-logos/03-fms-kl&p.png" alt="FMS KL&P - Customized lanyards Malaysia event organizer" class="logo-image">
+                        </div>
+                        
+                        <div class="event-logo">
+                            <img src="images/event-logos/7-ses9.png" alt="SES9 - Custom canvas bags Malaysia organizer" class="logo-image">
+                        </div>
+                        
+                        <div class="event-logo">
+                            <img src="images/event-logos/3-insight-ignition.png" alt="Insight Ignition - Customized lanyards Malaysia event organizer" class="logo-image">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -406,7 +634,7 @@
                                 <div class="message message-sent">
                                     <div class="message-bubble">
                                         <p class="message-text">Here is the design</p>
-                                        <p class="message-text"><a href="https://www.canva.com/design/DAGZ4buTzmU/4uMDeOFccIPUVhhUkl9FBw/edit?utm_content=DAGZ4buTzmU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" class="message-link">https://www.canva.com/design/DAGZ4buTzmU/4uMDeOFccIPUVhhUkl9FBw/edit?utm_content=DAGZ4buTzmU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton</a></p>
+                                        <p class="message-text"><a href="https://www.canva.com/design/DAG0v9qj66Q/OqVlysXsXwM5umcfnTQraw/edit?utm_content=DAG0v9qj66Q&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" class="message-link">https://www.canva.com/design/DAG0v9qj66Q/OqVlysXsXwM5umcfnTQraw/edit?utm_content=DAG0v9qj66Q&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton</a></p>
                                         <div class="message-meta">
                                             <div class="message-time">1:57 PM</div>
                                             <div class="message-status">
@@ -708,6 +936,28 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Testimonial 5 -->
+                    <div class="testimonial-card fade-in">
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                            </div>
+                            <blockquote class="testimonial-text">
+                                &ldquo;The Teevent team is the best! Their response is super quick and they're always so helpful in answering all our questions and doubts. They even guided us through the design process! When we needed to order extra at the very last minute, they still came through with amazing after-sales service. Truly appreciate their professionalism and kindness!&rdquo;
+                            </blockquote>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4 class="author-name">Suk Ting</h4>
+                                <p class="author-role">KL&P Family Doctor Club</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -954,12 +1204,8 @@
     </div>
 
     <script src="scripts/main.js"></script>
-    
-    <!-- Vercel Analytics -->
-    <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
+    <script src="scripts/quote-calculator.js"></script>
+    <script src="scripts/analytics.js"></script>
     
     <!-- Google Analytics 4 -->
     <!-- Replace GA_MEASUREMENT_ID with your actual Google Analytics 4 Measurement ID -->

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teevent Favicon Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .favicon-row {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        .favicon-label {
+            width: 150px;
+            font-weight: bold;
+            color: #555;
+        }
+        .favicon-display {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .favicon-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .circle-mask {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ccc;
+        }
+        .circle-mask img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .square-mask {
+            width: 64px;
+            height: 64px;
+            overflow: hidden;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ccc;
+        }
+        .square-mask img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .size-label {
+            font-size: 11px;
+            color: #888;
+        }
+        .issue-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+        }
+        .issue-box h2 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .fix-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            border-radius: 4px;
+        }
+        .fix-box h2 {
+            margin-top: 0;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔍 Teevent Favicon Test</h1>
+        
+        <div class="favicon-row">
+            <div class="favicon-label">96x96 (Primary)</div>
+            <div class="favicon-display">
+                <div class="favicon-box">
+                    <div class="circle-mask">
+                        <img src="images/favicon/favicon-96x96.png" alt="96x96">
+                    </div>
+                    <span class="size-label">Circle Mask</span>
+                </div>
+                <div class="favicon-box">
+                    <div class="square-mask">
+                        <img src="images/favicon/favicon-96x96.png" alt="96x96">
+                    </div>
+                    <span class="size-label">Square Mask</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="favicon-row">
+            <div class="favicon-label">192x192 (Android)</div>
+            <div class="favicon-display">
+                <div class="favicon-box">
+                    <div class="circle-mask">
+                        <img src="images/favicon/web-app-manifest-192x192.png" alt="192x192">
+                    </div>
+                    <span class="size-label">Circle Mask</span>
+                </div>
+                <div class="favicon-box">
+                    <div class="square-mask">
+                        <img src="images/favicon/web-app-manifest-192x192.png" alt="192x192">
+                    </div>
+                    <span class="size-label">Square Mask</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="favicon-row">
+            <div class="favicon-label">512x512 (Android)</div>
+            <div class="favicon-display">
+                <div class="favicon-box">
+                    <div class="circle-mask">
+                        <img src="images/favicon/web-app-manifest-512x512.png" alt="512x512">
+                    </div>
+                    <span class="size-label">Circle Mask</span>
+                </div>
+                <div class="favicon-box">
+                    <div class="square-mask">
+                        <img src="images/favicon/web-app-manifest-512x512.png" alt="512x512">
+                    </div>
+                    <span class="size-label">Square Mask</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="favicon-row">
+            <div class="favicon-label">SVG (Scalable)</div>
+            <div class="favicon-display">
+                <div class="favicon-box">
+                    <div class="circle-mask">
+                        <img src="images/favicon/favicon.svg" alt="SVG">
+                    </div>
+                    <span class="size-label">Circle Mask</span>
+                </div>
+                <div class="favicon-box">
+                    <div class="square-mask">
+                        <img src="images/favicon/favicon.svg" alt="SVG">
+                    </div>
+                    <span class="size-label">Square Mask</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="favicon-row">
+            <div class="favicon-label">Apple Touch Icon</div>
+            <div class="favicon-display">
+                <div class="favicon-box">
+                    <div class="circle-mask">
+                        <img src="images/favicon/apple-touch-icon.png" alt="Apple">
+                    </div>
+                    <span class="size-label">Circle Mask</span>
+                </div>
+                <div class="favicon-box">
+                    <div class="square-mask">
+                        <img src="images/favicon/apple-touch-icon.png" alt="Apple">
+                    </div>
+                    <span class="size-label">Square Mask</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="issue-box">
+            <h2>⚠️ What to Look For</h2>
+            <p><strong>Problem:</strong> If you see empty space (gray area) around your logo in the circular masks, your favicon has too much padding.</p>
+            <p><strong>Goal:</strong> The logo should fill the entire circle/square with minimal or no visible gray background.</p>
+        </div>
+
+        <div class="fix-box">
+            <h2>✅ How to Fix</h2>
+            <ol>
+                <li>Open your logo in an image editor (Photoshop, Figma, Canva, etc.)</li>
+                <li>Remove all transparent padding around the logo</li>
+                <li>Export as PNG with the logo touching all edges of the canvas</li>
+                <li>Use a favicon generator (like <a href="https://realfavicongenerator.net/" target="_blank">RealFaviconGenerator.net</a>)</li>
+                <li>Replace the generated favicons in the <code>images/</code> folder</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
+
