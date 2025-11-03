@@ -1266,6 +1266,7 @@ a:focus {
     align-items: center;
     gap: 80px;
     animation: scroll-logos 45s linear infinite; /* Longer duration for 3 sets */
+    width: max-content; /* Ensure track width equals intrinsic content width */
 }
 
 /* Pause animation on hover */
@@ -1289,6 +1290,7 @@ a:focus {
     padding: var(--space-4);
     transition: all var(--transition-base);
     opacity: 0.6;
+    flex: 0 0 auto; /* Prevent flex shrink on mobile browsers */
 }
 
 .event-logo:hover {
@@ -1303,6 +1305,11 @@ a:focus {
     filter: grayscale(100%);
     transition: all var(--transition-base);
     flex-shrink: 0;
+}
+
+/* Avoid global img { max-width:100% } from shrinking these logos */
+.event-logos-grid .logo-image {
+    max-width: none;
 }
 
 .event-logo:hover .logo-image {
@@ -2346,6 +2353,7 @@ a:focus {
     .event-logos-scroll {
         gap: 7.5px; /* 50% smaller gap on mobile (15px -> 7.5px) */
         animation: scroll-logos-mobile 45s linear infinite; /* Longer duration for 3 sets */
+        width: max-content; /* Keep intrinsic width on mobile too */
     }
     
     @keyframes scroll-logos-mobile {
