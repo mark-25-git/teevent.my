@@ -5,12 +5,6 @@
 const CALCULATE_QUOTE_API = '/api/calculate-quote';
 const QUOTE_CONFIG_API = '/api/quote-config';
 
-const ADD_ONS_DISPLAY = [
-    { size: 'A6', price: 2.0, priceFormatted: 'RM2.00' },
-    { size: 'A4', price: 4.5, priceFormatted: 'RM4.50' },
-    { size: 'A3', price: 7.0, priceFormatted: 'RM7.00' },
-];
-
 const ADDON_IMAGE_MAP = {
     A6: ['a6-chest.webp', 'a6-sleeve.webp', 'a6-sleeve-name.webp', 'a6-back-name.webp'],
     A4: ['a4-front.webp', 'a4-front-1.webp'],
