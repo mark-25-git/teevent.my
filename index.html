@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teevent - Custom Event Merchandise</title>
-    <meta name="description" content="Custom event merchandise in Malaysia. T-shirt printing, lanyards, tote bags, and badges with fast support you can count on.">
+    <meta name="description" content="Custom event merchandise in Malaysia. T-shirt printing, lanyards, tote bags, and keychains with fast support you can count on.">
     <meta name="keywords" content="custom t shirt printing malaysia, customized lanyards malaysia, custom tote bag printing malaysia, event merchandise supplier malaysia, corporate t shirt printing malaysia, promotional merchandise malaysia, custom canvas bags malaysia, acrylic keychains malaysia, custom pin badges malaysia, university event merchandise malaysia">
     
     <!-- Open Graph / Facebook -->
@@ -248,222 +248,63 @@
                     <h2 class="modal-title">T-Shirt Quote Calculator <span class="beta-badge">Beta</span></h2>
                     <p class="modal-subtitle">These quotations are indicative. Actual pricing will be confirmed during the quoting process with our <a href="https://wa.me/60137482481?text=Hi%20Teevent!%20I%27d%20like%20to%20get%20an%20accurate%20quote%20for%20my%20order." target="_blank" rel="noopener noreferrer" class="team-link">team</a>.</p>
                     
-                    <!-- Mode Toggle Inside Modal -->
-                    <div class="quote-mode-toggle-modal" id="quoteModeToggle">
-                        <button class="quote-mode-btn active" data-mode="preset">
-                            Preset
+                    <!-- Step 1: Color Option Selection -->
+                    <div class="quote-step">
+                        <h3 class="step-title">Select Color Option</h3>
+                        <div class="color-options-grid">
+                            <button class="color-option-btn" data-color="full-color">
+                                <div class="color-option-icon">🎨</div>
+                                <div class="color-option-title">Full Color</div>
+                            </button>
+                            <button class="color-option-btn" data-color="black-white">
+                                <div class="color-option-icon">⚫⚪</div>
+                                <div class="color-option-title">Black/White</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Quantity Input -->
+                    <div class="quote-step">
+                        <h3 class="step-title">Enter Quantity</h3>
+                        <div class="quantity-input-wrapper">
+                            <input type="number" id="quantityInput" class="quote-input-field" min="1" placeholder="Enter quantity" value="">
+                            <span class="quantity-label">pieces</span>
+                        </div>
+                        <div id="contactMessage" class="contact-message" style="display: none;">
+                            <p>For quantities less than 50 pieces, please <a href="https://wa.me/60137482481" target="_blank">contact us</a> for pricing.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Add-ons (Optional) -->
+                    <div class="quote-step">
+                        <h3 class="step-title">Add-ons (Optional)</h3>
+                        <div class="addons-list" id="addonsList">
+                            <!-- Add-ons will be dynamically generated from JSON -->
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Calculate Button -->
+                    <div class="quote-step">
+                        <div id="validationMessage" class="validation-message" style="display: none;"></div>
+                        <button id="calculateQuoteBtn" class="btn-primary calculate-quote-btn" style="width: 100%;">
+                            Calculate Quote
                         </button>
-                        <button class="quote-mode-btn" data-mode="custom">
-                            Draft
+                    </div>
+
+                    <!-- Step 5: Price Display (Hidden initially) -->
+                    <div class="quote-step" id="priceDisplaySection" style="display: none;">
+                        <div id="priceDisplay" class="price-display-wrapper">
+                            <span class="price-placeholder">Select options above</span>
+                        </div>
+                        <div id="totalDisplay" class="total-display-wrapper"></div>
+                    </div>
+
+                    <!-- Step 6: WhatsApp CTA -->
+                    <div class="quote-step" id="whatsappSection" style="display: none;">
+                        <button id="whatsappQuoteBtn" class="btn-primary whatsapp-quote-btn" style="width: 100%;">
+                            Get Quote via WhatsApp
                         </button>
                     </div>
-                
-                <!-- Preset Mode -->
-                <div id="presetMode">
-                    <div class="presets-grid">
-                        <div class="preset-card selected" data-preset="classic" onclick="selectPreset('classic')">
-                            <span class="preset-badge">Popular</span>
-                            <h3>The Classic</h3>
-                            <div class="preset-specs">
-                                • Front: 10×10cm<br>
-                                • Back: A3<br>
-                                • Full color
-                            </div>
-                        </div>
-
-                        <div class="preset-card" data-preset="premium" onclick="selectPreset('premium')">
-                            <span class="preset-badge">Premium</span>
-                            <h3>The Statement</h3>
-                            <div class="preset-specs">
-                                • Front: 10×10cm<br>
-                                • Back: A3<br>
-                                • Sleeves: 7×7cm<br>
-                                • Full color
-                            </div>
-                        </div>
-
-                        <div class="preset-card" data-preset="simple" onclick="selectPreset('simple')">
-                            <span class="preset-badge">Budget</span>
-                            <h3>The Essential</h3>
-                            <div class="preset-specs">
-                                • Front: 7×7cm<br>
-                                • Back: A3<br>
-                                • Limited colors
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="quantity-input-card">
-                        <h3>How many t-shirts?</h3>
-                        <input type="number" id="quantityPreset" class="quote-input-field" min="10" placeholder="Enter quantity" value="50">
-                        <button class="calculate-btn" onclick="calculatePreset()">Calculate Quote</button>
-                    </div>
-                </div>
-
-                <!-- Custom Mode -->
-                <div id="customMode" class="hidden">
-                    <div class="custom-form-section">
-                        <form id="customForm" onsubmit="calculateCustom(event)">
-                            <div class="form-group">
-                                <label>Material</label>
-                                <div class="button-group">
-                                    <button type="button" class="toggle-option-btn active" data-group="material" data-value="cotton">Cotton</button>
-                                    <button type="button" class="toggle-option-btn" data-group="material" data-value="microfiber">Microfiber</button>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="quantityCustom">Order Quantity</label>
-                                <input type="number" id="quantityCustom" class="quote-input-field" min="1" placeholder="Enter quantity" required>
-                            </div>
-
-                            <div class="printing-location-card">
-                                <h3>Front</h3>
-                                <div class="print-location-layout">
-                                    <div class="print-location-left">
-                                        <label class="print-location-label">Size</label>
-                                        <div class="print-controls">
-                                            <input type="number" id="frontWidth" class="quote-input-field" placeholder="W" step="0.1" min="0" value="0">
-                                            <input type="number" id="frontHeight" class="quote-input-field" placeholder="H" step="0.1" min="0" value="0">
-                                        </div>
-                                        <div class="size-quick-select">
-                                            <button type="button" class="size-select-btn" onclick="setSize('front', 0, 0)">None</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('front', 5, 5)">5×5</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('front', 7, 7)">7×7</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('front', 10, 10)">10×10</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('front', 21, 29.7)">A4</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('front', 29.7, 42)">A3</button>
-                                        </div>
-                                    </div>
-                                    <div class="print-location-right">
-                                        <label class="print-location-label">Color</label>
-                                        <div class="button-group">
-                                            <button type="button" class="toggle-option-btn active" data-group="frontColor" data-value="0">None</button>
-                                            <button type="button" class="toggle-option-btn" data-group="frontColor" data-value="1">Mono</button>
-                                            <button type="button" class="toggle-option-btn" data-group="frontColor" data-value="3">Multi</button>
-                                            <button type="button" class="toggle-option-btn" data-group="frontColor" data-value="5">Full</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="printing-location-card">
-                                <h3>Back</h3>
-                                <div class="print-location-layout">
-                                    <div class="print-location-left">
-                                        <label class="print-location-label">Size</label>
-                                        <div class="print-controls">
-                                            <input type="number" id="backWidth" class="quote-input-field" placeholder="W" step="0.1" min="0" value="0">
-                                            <input type="number" id="backHeight" class="quote-input-field" placeholder="H" step="0.1" min="0" value="0">
-                                        </div>
-                                        <div class="size-quick-select">
-                                            <button type="button" class="size-select-btn" onclick="setSize('back', 0, 0)">None</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('back', 5, 5)">5×5</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('back', 7, 7)">7×7</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('back', 10, 10)">10×10</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('back', 21, 29.7)">A4</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('back', 29.7, 42)">A3</button>
-                                        </div>
-                                    </div>
-                                    <div class="print-location-right">
-                                        <label class="print-location-label">Color</label>
-                                        <div class="button-group">
-                                            <button type="button" class="toggle-option-btn active" data-group="backColor" data-value="0">None</button>
-                                            <button type="button" class="toggle-option-btn" data-group="backColor" data-value="1">Mono</button>
-                                            <button type="button" class="toggle-option-btn" data-group="backColor" data-value="3">Multi</button>
-                                            <button type="button" class="toggle-option-btn" data-group="backColor" data-value="5">Full</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="printing-location-card">
-                                <h3>Left Sleeve</h3>
-                                <div class="print-location-layout">
-                                    <div class="print-location-left">
-                                        <label class="print-location-label">Size</label>
-                                        <div class="print-controls">
-                                            <input type="number" id="leftSleeveWidth" class="quote-input-field" placeholder="W" step="0.1" min="0" value="0">
-                                            <input type="number" id="leftSleeveHeight" class="quote-input-field" placeholder="H" step="0.1" min="0" value="0">
-                                        </div>
-                                        <div class="size-quick-select">
-                                            <button type="button" class="size-select-btn" onclick="setSize('leftSleeve', 0, 0)">None</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('leftSleeve', 5, 5)">5×5</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('leftSleeve', 7, 7)">7×7</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('leftSleeve', 10, 10)">10×10</button>
-                                        </div>
-                                    </div>
-                                    <div class="print-location-right">
-                                        <label class="print-location-label">Color</label>
-                                        <div class="button-group">
-                                            <button type="button" class="toggle-option-btn active" data-group="leftSleeveColor" data-value="0">None</button>
-                                            <button type="button" class="toggle-option-btn" data-group="leftSleeveColor" data-value="1">Mono</button>
-                                            <button type="button" class="toggle-option-btn" data-group="leftSleeveColor" data-value="3">Multi</button>
-                                            <button type="button" class="toggle-option-btn" data-group="leftSleeveColor" data-value="5">Full</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="printing-location-card">
-                                <h3>Right Sleeve</h3>
-                                <div class="print-location-layout">
-                                    <div class="print-location-left">
-                                        <label class="print-location-label">Size</label>
-                                        <div class="print-controls">
-                                            <input type="number" id="rightSleeveWidth" class="quote-input-field" placeholder="W" step="0.1" min="0" value="0">
-                                            <input type="number" id="rightSleeveHeight" class="quote-input-field" placeholder="H" step="0.1" min="0" value="0">
-                                        </div>
-                                        <div class="size-quick-select">
-                                            <button type="button" class="size-select-btn" onclick="setSize('rightSleeve', 0, 0)">None</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('rightSleeve', 5, 5)">5×5</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('rightSleeve', 7, 7)">7×7</button>
-                                            <button type="button" class="size-select-btn" onclick="setSize('rightSleeve', 10, 10)">10×10</button>
-                                        </div>
-                                    </div>
-                                    <div class="print-location-right">
-                                        <label class="print-location-label">Color</label>
-                                        <div class="button-group">
-                                            <button type="button" class="toggle-option-btn active" data-group="rightSleeveColor" data-value="0">None</button>
-                                            <button type="button" class="toggle-option-btn" data-group="rightSleeveColor" data-value="1">Mono</button>
-                                            <button type="button" class="toggle-option-btn" data-group="rightSleeveColor" data-value="3">Multi</button>
-                                            <button type="button" class="toggle-option-btn" data-group="rightSleeveColor" data-value="5">Full</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Custom Names/Department Numbers</label>
-                                <div class="button-group">
-                                    <button type="button" class="toggle-option-btn active" data-group="customNames" data-value="no">No</button>
-                                    <button type="button" class="toggle-option-btn" data-group="customNames" data-value="yes">Yes</button>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="calculate-btn">Calculate Quote</button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Results Section -->
-                <div class="quote-results-section" id="resultsSection">
-                    <div class="price-display-card">
-                        <h2>Suggested Price Range</h2>
-                        <div class="price-range-value" id="priceRange">RM 22 - RM 28</div>
-                        <div class="confidence-badge" id="confidenceBadge">Based on similar orders</div>
-                    </div>
-
-                    <div class="price-details-card">
-                        <h3>Your Configuration</h3>
-                        <div id="detailsList"></div>
-                    </div>
-
-                    <!-- <div class="similar-orders-card">
-                        <h3>Similar Historical Orders</h3>
-                        <div id="similarOrdersList"></div>
-                    </div> -->
-                </div>
 
                 </div>
             </div>
@@ -909,30 +750,8 @@
                         </div>
                         <div class="testimonial-author">
                             <div class="author-info">
-                                <h4 class="author-name">WN</h4>
+                                <h4 class="author-name">AIESEC NILC 2025</h4>
                                 <p class="author-role">Universiti Kebangsaan Malaysia</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Testimonial 4 (Swapped - was 1st) -->
-                    <div class="testimonial-card fade-in">
-                        <div class="testimonial-content">
-                            <div class="testimonial-stars">
-                                <span class="star">⭐</span>
-                                <span class="star">⭐</span>
-                                <span class="star">⭐</span>
-                                <span class="star">⭐</span>
-                                <span class="star">⭐</span>
-                            </div>
-                            <blockquote class="testimonial-text">
-                                &ldquo;Teevent was super smooth to work with! The lanyards came out really nice, customer service was fast and friendly, and the price was student-budget friendly. Definitely recommending them.&rdquo;
-                            </blockquote>
-                        </div>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <h4 class="author-name">I****n</h4>
-                                <p class="author-role">UTAR</p>
                             </div>
                         </div>
                     </div>
@@ -972,6 +791,42 @@
                  <a href="https://wa.me/60137482481?text=Hi%20Teevent!%20I%27m%20ready%20to%20choose%20better%20for%20my%20event%20merchandise.%20Please%20help%20me%20with%20a%20quotation%20and%20more%20information%20about%20your%20services." class="btn-primary contact-cta fade-in" target="_blank">
                     Choose Better
                 </a>
+                
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper fade-in">
+                    <h3 class="contact-form-title">Too shy to contact us?<br>Let us do the work.</h3>
+                    <form id="contactForm" class="contact-form" action="https://formsubmit.co/team.teevent@gmail.com" method="POST">
+                        <!-- FormSubmit Configuration -->
+                        <input type="hidden" name="_next" value="https://teevent.my/#contact">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="New Contact Form Submission">
+                        <input type="hidden" name="_template" value="box">
+                        <input type="hidden" name="_autoresponse" value="Thank you for contacting Teevent! We've received your message and will get back to you soon.">
+                        
+                        <!-- Form Fields -->
+                        <input 
+                            type="text" 
+                            name="contact" 
+                            id="contactInput" 
+                            class="contact-input" 
+                            placeholder="Enter your email or WhatsApp number" 
+                            required
+                            aria-label="Email or WhatsApp number"
+                        />
+                        <textarea 
+                            name="inquiry" 
+                            id="inquiryInput" 
+                            class="contact-inquiry-input" 
+                            placeholder="Tell us about your needs (optional)"
+                            rows="4"
+                            aria-label="Your needs"
+                        ></textarea>
+                        <button type="submit" class="btn-primary contact-submit-btn" id="contactSubmitBtn">
+                            Submit
+                        </button>
+                    </form>
+                    <div id="contactFormMessage" class="contact-form-message" style="display: none;" role="alert"></div>
+                </div>
             </div>
         </section>
     </main>
@@ -1205,6 +1060,7 @@
 
     <script src="scripts/main.js"></script>
     <script src="scripts/quote-calculator.js"></script>
+    <script src="scripts/contact-form.js"></script>
     <script src="scripts/analytics.js"></script>
     
     <!-- Google Analytics 4 -->

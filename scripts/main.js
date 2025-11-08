@@ -1188,9 +1188,6 @@ function initializeQuoteToggle() {
     const quoteCalculatorModal = document.getElementById('quoteCalculatorModal');
     const quoteModalClose = document.getElementById('quoteModalClose');
     const quoteModalOverlay = document.getElementById('quoteModalOverlay');
-    const modeButtons = document.querySelectorAll('.quote-mode-btn');
-    const presetMode = document.getElementById('presetMode');
-    const customMode = document.getElementById('customMode');
     
     if (!getQuoteBtn || !quoteCalculatorModal) return;
     
@@ -1221,39 +1218,6 @@ function initializeQuoteToggle() {
         if (e.key === 'Escape' && quoteCalculatorModal.style.display === 'flex') {
             closeModal();
         }
-    });
-    
-    // Handle mode selection
-    modeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons
-            modeButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Add active class to clicked button
-            button.classList.add('active');
-            
-            const selectedMode = button.getAttribute('data-mode');
-            
-            // Update currentMode in quote-calculator.js
-            if (typeof window.currentMode !== 'undefined') {
-                window.currentMode = selectedMode;
-            }
-            
-            // Switch between preset and custom modes
-            if (selectedMode === 'preset') {
-                if (presetMode) presetMode.classList.remove('hidden');
-                if (customMode) customMode.classList.add('hidden');
-            } else {
-                if (presetMode) presetMode.classList.add('hidden');
-                if (customMode) customMode.classList.remove('hidden');
-            }
-            
-            // Hide results when switching modes
-            const resultsSection = document.getElementById('resultsSection');
-            if (resultsSection) {
-                resultsSection.classList.remove('show');
-            }
-        });
     });
 }
 

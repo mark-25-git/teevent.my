@@ -1,0 +1,18 @@
+Item Type,Configuration,Printing Method,Quantity,Price
+T-shirt,"Front chest logo (A6), Back A3",DTF (Color Print),50,RM20.00
+T-shirt,"Front chest logo (A6), Back A3",DTF (Color Print),100,RM20.00
+T-shirt,"Front chest logo (A6), Back A3",DTF (Color Print),150,RM18.50
+T-shirt,"Front chest logo (A6), Back A3",DTF (Color Print),200,RM18.50
+T-shirt,"Front chest logo (A6), Back A3",DTF (Color Print),250,RM18.50
+T-shirt,"Front chest logo (A6), Back A3",DTF (Color Print),300,RM18.50
+T-shirt,"Front chest logo (A6), Back A3",Silkscreen (Black/White),50,RM19.00
+T-shirt,"Front chest logo (A6), Back A3",Silkscreen (Black/White),100,RM16.00
+T-shirt,"Front chest logo (A6), Back A3",Silkscreen (Black/White),150,RM15.80
+T-shirt,"Front chest logo (A6), Back A3",Silkscreen (Black/White),200,RM15.40
+T-shirt,"Front chest logo (A6), Back A3",Silkscreen (Black/White),250,RM15.00
+T-shirt,"Front chest logo (A6), Back A3",Silkscreen (Black/White),300,RM14.80
+
+Add-on Type,Logo Size,Price
+Add-on Logo,A6,RM2.00
+Add-on Logo,A4,RM4.50
+Add-on Logo,A3,RM7.00
