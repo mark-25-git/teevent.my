@@ -34,7 +34,7 @@ export const priceList = {
         logo: {
             type: 'Add-on Logo',
             sizes: [
-                { size: 'A6', price: 2.0, priceFormatted: 'RM2.00' },
+                { size: 'A6', price: 20.0, priceFormatted: 'RM20.00' },
                 { size: 'A4', price: 4.5, priceFormatted: 'RM4.50' },
                 { size: 'A3', price: 7.0, priceFormatted: 'RM7.00' },
             ],
