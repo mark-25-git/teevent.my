@@ -3,6 +3,7 @@
 // ===================================
 
 const CALCULATE_QUOTE_API = '/api/calculate-quote';
+const QUOTE_CONFIG_API = '/api/quote-config';
 
 const ADD_ONS_DISPLAY = [
     { size: 'A6', price: 2.0, priceFormatted: 'RM2.00' },
@@ -20,6 +21,7 @@ let selectedColorOption = null;
 let quantity = 0;
 let selectedAddOns = [];
 let latestQuoteData = null;
+let addOnsConfig = [];
 
 async function requestQuoteFromServer(payload) {
     const response = await fetch(CALCULATE_QUOTE_API, {
@@ -38,13 +40,38 @@ async function requestQuoteFromServer(payload) {
     return response.json();
 }
 
+async function loadCalculatorConfig() {
+    const response = await fetch(QUOTE_CONFIG_API, {
+        headers: {
+            'Accept': 'application/json',
+        },
+    });
+
+    if (!response.ok) {
+        const error = await response.json().catch(() => ({}));
+        throw new Error(error.error || 'Failed to load calculator configuration');
+    }
+
+    const result = await response.json();
+    if (!result?.data?.addOns) {
+        throw new Error('Invalid calculator configuration');
+    }
+
+    addOnsConfig = result.data.addOns;
+}
+
 function generateAddOnsHTML() {
     const addonsList = document.getElementById('addonsList');
     if (!addonsList) return;
 
     addonsList.innerHTML = '';
 
-    ADD_ONS_DISPLAY.forEach((addon, index) => {
+    if (!Array.isArray(addOnsConfig) || addOnsConfig.length === 0) {
+        addonsList.innerHTML = '<p class="addons-unavailable">Add-on pricing is unavailable right now. Please try again later.</p>';
+        return;
+    }
+
+    addOnsConfig.forEach((addon, index) => {
         const images = (ADDON_IMAGE_MAP[addon.size] || []).map(
             (img) => `images/tshirt-add-on-option/${img}`,
         );
@@ -68,7 +95,7 @@ function generateAddOnsHTML() {
                 : '';
 
         const addonHTML = `
-            <div class="addon-item" data-size="${addon.size}" data-price="${addon.price.toFixed(2)}">
+            <div class="addon-item" data-size="${addon.size}" data-price="${Number(addon.price).toFixed(2)}">
                 ${carouselHTML}
                 <div class="addon-info">
                     <span class="addon-label">Add logo ${addon.size}</span>
@@ -332,10 +359,6 @@ function initQuantityInput() {
     }
 }
 
-function getClientAddon(price, size) {
-    return { size, price: Number(price), quantity: 0 };
-}
-
 function initAddOns() {
     const addOnItems = document.querySelectorAll('.addon-item');
 
@@ -462,9 +485,21 @@ function initAddOns() {
     });
 }
 
-function initCalculator() {
+async function initCalculator() {
+    try {
+        await loadCalculatorConfig();
+    } catch (error) {
+        console.error('Failed to load calculator configuration:', error);
+        const addonsList = document.getElementById('addonsList');
+        if (addonsList) {
+            addonsList.innerHTML = '<p class="addons-unavailable">Add-on options are unavailable. Please contact us directly.</p>';
+        }
+    }
+
     generateAddOnsHTML();
     initAddOnCarousels();
+
+    selectedAddOns = [];
 
     initColorSelection();
     initQuantityInput();
@@ -539,7 +574,9 @@ function generateWhatsAppMessage() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    initCalculator();
+    initCalculator().catch((error) => {
+        console.error('Calculator failed to initialize:', error);
+    });
 });
 
 window.updatePriceDisplay = updatePriceDisplay;
