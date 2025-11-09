@@ -416,7 +416,18 @@ body {
 }
 
 .quote-modal-body .modal-subtitle .team-link:focus {
-    outline: none;
+    opacity: 1;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.quote-modal-body .modal-note {
+    font-size: var(--text-xs);
+    color: var(--text-bright-secondary);
+    text-align: left;
+    margin-top: calc(-1 * var(--space-3));
+    margin-bottom: var(--space-6);
+    opacity: 0.65;
 }
 
 .quote-calculator-modal .modal-close {
@@ -560,15 +571,10 @@ body {
 }
 
 /* Custom Form Section */
-.custom-form-section {
-    /* Removed background and padding for more content space */
-}
+/* Intentionally inherits base spacing and background. */
 
 .custom-form-section .form-group {
     margin-bottom: var(--space-6);
-    background: var(--bg-bright-secondary);
-    padding: var(--space-6);
-    border-radius: var(--radius-2xl);
 }
 
 .form-group label {
